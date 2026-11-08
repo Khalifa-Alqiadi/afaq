@@ -106,8 +106,8 @@
     background: var(--footer-accent);
 }
 
-#footer.afaq-footer .footer-top .footer-links ul li { padding: 0 0 14px; }
-#footer.afaq-footer .footer-top .footer-links ul a { color: #b9cbd0; font-size: .93rem; line-height: 1.5; transition: color .2s ease, transform .2s ease; }
+#footer.afaq-footer .footer-top .footer-links ul li { padding: 0 0 9px; }
+#footer.afaq-footer .footer-top .footer-links ul a { color: #b9cbd0; font-size: 15px; line-height: 1.5; transition: color .2s ease, transform .2s ease; }
 #footer.afaq-footer .footer-top .footer-links ul a:hover { color: var(--footer-accent); transform: translateX(-4px); }
 [dir="ltr"] #footer.afaq-footer .footer-top .footer-links ul a:hover { transform: translateX(4px); }
 #footer.afaq-footer .footer-top .footer-links ul i { color: var(--footer-accent); }
@@ -206,11 +206,11 @@
 #footer.afaq-footer .modern-footer-logo img { max-height: 72px; }
 #footer.afaq-footer .afaq-footer-brand-name { color: var(--footer-ink); }
 #footer.afaq-footer .afaq-footer-brand-caption { color: var(--footer-muted); }
-#footer.afaq-footer .modern-footer-description { max-width: 360px; margin: 0 0 26px; color: var(--footer-muted); font-size: .94rem; line-height: 1.9; }
+#footer.afaq-footer .modern-footer-description { max-width: 360px; margin: 0 0 26px; color: #131515; font-size: .94rem; line-height: 1.9; }
 
 #footer.afaq-footer .footer-top h3,
 #footer.afaq-footer .footer-newsletter h4 { color: var(--footer-ink); }
-#footer.afaq-footer .footer-top .footer-links ul a { color: var(--footer-muted); }
+#footer.afaq-footer .footer-top .footer-links ul a { color: #000; }
 #footer.afaq-footer .footer-top .footer-links ul a:hover { color: #126272; }
 #footer.afaq-footer .footer-newsletter { color: var(--footer-muted); }
 

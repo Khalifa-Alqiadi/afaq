@@ -11,9 +11,9 @@ $contact_email = Helper::GeneralSiteSettings("contact_t6");
 ?>
 <footer id="footer" class="modern-footer afaq-footer">
     @if(Helper::GeneralSiteSettings("style_footer")==1)
-        <div class="footer-top">
+        <div class="footer-top pb-2">
             <div class="container">
-                <div class="row g-4 modern-footer-main">
+                <div class="row g-4 modern-footer-main pb-0">
                     <div class="col-lg-4 col-md-12">
                         <div class="modern-footer-brand">
                             <a class="modern-footer-logo" href="{{ Helper::homeURL() }}">
