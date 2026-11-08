@@ -24,7 +24,7 @@
     $seoPublishedTime = !empty(@$Topic) ? $formatSeoDate(@$Topic->created_at ?? null) : null;
     $seoModifiedTime = !empty(@$Topic) ? $formatSeoDate(@$Topic->updated_at ?? null) : null;
 @endphp
-<meta name="author" content="{{ $modernMetaAuthors ?: ((@$page_type === 'author' && filled($PageTitle ?? null)) ? $PageTitle : URL::to('')) }}"/>
+{{-- <meta name="author" content="{{(@$PageTitle !="")? @$PageTitle : Helper::GeneralSiteSettings("site_title_" . @Helper::currentLanguage()->code)}}"/> --}}
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,7 +48,7 @@
 <link href="{{ theme_asset('css/colors.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
 <link href="{{ theme_asset('css/motion.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
 <link href="{{ theme_asset('css/authors.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
-<link href="{{ theme_asset('css/hero-slider.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
+<link href="{{ theme_asset('css/hero-slider.css') }}?v={{ Helper::system_version() }}-{{ filemtime(base_path('../assets/modern/css/hero-slider.css')) }}" rel="stylesheet"/>
 <link href="{{ theme_asset('css/yemen-landing.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
 <link href="{{ theme_asset('css/yemen-categories.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
 <link href="{{ theme_asset('css/yemen-video-gallery.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
@@ -60,6 +60,9 @@
 <link href="{{ theme_asset('css/rtl.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
 @endif
 <link href="{{ theme_asset('css/mobile-responsive.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
+<link href="{{ theme_asset('css/afaq-header.css') }}?v={{ Helper::system_version() }}-{{ filemtime(base_path('../assets/modern/css/afaq-header.css')) }}" rel="stylesheet"/>
+<link href="{{ theme_asset('css/afaq-featured-slider.css') }}?v={{ Helper::system_version() }}-{{ filemtime(base_path('../assets/modern/css/afaq-featured-slider.css')) }}" rel="stylesheet"/>
+<link href="{{ theme_asset('css/afaq-footer.css') }}?v={{ Helper::system_version() }}-{{ filemtime(base_path('../assets/modern/css/afaq-footer.css')) }}" rel="stylesheet"/>
 
 <!-- Favicon and Touch Icons -->
 @if(Helper::GeneralSiteSettings("style_fav") !="")

@@ -3,8 +3,6 @@
     $SliderBanners = Helper::BannersList($BannersSettingsId);
     ?>
     @if(count($SliderBanners) > 0)
-        <section id="hero" class="modern-hero">
-            <div class="hero-container hero-slider">
                 @foreach($SliderBanners->slice(0, 1) as $SliderBanner)
                     <?php
                     try {
@@ -14,6 +12,8 @@
                     }
                     ?>
                 @endforeach
+        <section id="hero" class="modern-hero {{ $SliderBanner_type == 1 ? 'afaq-split-hero' : '' }}" aria-label="{{ @Helper::currentLanguage()->code === 'ar' ? 'آفاق للطاقة والأعمال المتكاملة' : 'AFAQ for Energy and Integrated Solutions' }}">
+            <div class="hero-container hero-slider">
                 <?php
                 $title_var = "title_".@Helper::currentLanguage()->code;
                 $title_var2 = "title_".config('smartend.default_language');
@@ -60,11 +60,13 @@
                                 } else {
                                     $BTitle = $SliderBanner->$title_var2;
                                 }
+                                $BTitle = trim(str_replace(['\\n', '\\r', "\r", "\n"], ' ', (string) $BTitle));
                                 if ($SliderBanner->$details_var != "") {
                                     $BDetails = $SliderBanner->$details_var;
                                 } else {
                                     $BDetails = $SliderBanner->$details_var2;
                                 }
+                                $BDetails = trim(str_replace(['\\n', '\\r'], "\n", (string) $BDetails));
                                 if ($SliderBanner->$file_var != "") {
                                     $BFile = $SliderBanner->$file_var;
                                 } else {
@@ -74,6 +76,18 @@
                                     $BLink = $SliderBanner->$link_var;
                                 } else {
                                     $BLink = $SliderBanner->$link_var2;
+                                }
+                                $isDemoBanner = preg_match('/^(بنر رقم|banner\s*#)/iu', $BTitle) === 1;
+                                if ($isDemoBanner) {
+                                    $BTitle = @Helper::currentLanguage()->code === 'ar' ? 'طاقة بإتقان هندسي' : 'Energy, engineered.';
+                                    $BDetails = @Helper::currentLanguage()->code === 'ar'
+                                        ? 'حلول الطاقة الشمسية والتخزين المصممة لمشاريعك في سلطنة عُمان.'
+                                        : 'Solar and storage solutions engineered for your projects across Oman.';
+                                    $BLink = url((@Helper::currentLanguage()->code !== config('smartend.default_language') ? @Helper::currentLanguage()->code.'/' : '').'afaq-contact');
+                                }
+                                $BFile = basename((string) $BFile);
+                                if ($BFile === '' || $BFile === 'noimg.png' || !is_file(base_path('../uploads/banners/'.$BFile))) {
+                                    $BFile = 'afaq-profile-page-'.(($i % 3) + 1).'.png';
                                 }
                                 $slideNumber = str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT);
                                 $slideTotal = str_pad((string) $sliderCount, 2, '0', STR_PAD_LEFT);
@@ -93,12 +107,13 @@
                                     </div>
                                     <div class="modern-hero-shade" aria-hidden="true"></div>
                                     <div class="modern-hero-orbit" aria-hidden="true"></div>
+                                    <div class="modern-hero-grid" aria-hidden="true"></div>
 
                                     @if($BTitle != "" || $BDetails != "" || $BLink != "")
                                         <div class="modern-hero-container container">
                                             <div class="modern-hero-content">
                                                 @if($BTitle != "")
-                                                    <h2 class="modern-hero-title">{!! $BTitle !!}</h2>
+                                                    <h2 class="modern-hero-title">{{ $BTitle }}</h2>
                                                 @endif
 
                                                 @if($BDetails != "")
@@ -116,6 +131,10 @@
                                             </div>
                                         </div>
                                     @endif
+                                    <div class="modern-hero-image-note" aria-hidden="true">
+                                        <span class="modern-hero-image-note-index">{{ $slideNumber }} <span>/ {{ $slideTotal }}</span></span>
+                                        <span class="modern-hero-image-note-rule"></span>
+                                    </div>
                                 </div>
                                 @php($i++)
                             @endforeach
@@ -133,7 +152,7 @@
                                             data-bs-slide-to="{{ $indicatorIndex }}"
                                             class="modern-hero-indicator {{ $indicatorIndex === 0 ? 'active' : '' }}"
                                             @if($indicatorIndex === 0) aria-current="true" @endif
-                                            aria-label="{{ $indicatorIndex + 1 }} / {{ $sliderCount }}">
+                                            aria-label="{{ ($SliderBanner->$title_var ?: $SliderBanner->$title_var2) ?: ($indicatorIndex + 1).' / '.$sliderCount }}">
                                         <span>{{ str_pad((string) ($indicatorIndex + 1), 2, '0', STR_PAD_LEFT) }}</span>
                                     </button>
                                     @php($indicatorIndex++)
@@ -159,6 +178,7 @@
                                 </div>
                             @endif
                         </div>
+                        <span class="modern-hero-vertical-label" aria-hidden="true">AFAQ <span>—</span> ENERGY ENGINEERED</span>
                     </div>
                 @else
                     {{-- Video Banners --}}

@@ -6,59 +6,47 @@
         : __('yemen_home.featured_news_slider');
 @endphp
 
-
-<section id="landing-block-{{ $TopicBlock->id }}" class="meu-hero scholars-editorial-hero yh-featured-news {{ $TopicBlock->css_classes }}" aria-label="{{ $featuredSliderLabel }}" style="--featured-slide-duration: {{ $featuredSliderSpeed }}ms">
-    <div class="hero-fx" aria-hidden="true">
-        <span class="hero-fx-grid"></span>
-        <span class="hero-fx-rosette"></span>
-        <span class="hero-fx-arch"></span>
-    </div>
-    <div class="hero-container hero-slider">
-        <div id="{{ $featuredCarouselId }}" class="carousel slide carousel-fade {{ $featuredSlideCount === 1 ? 'hero-single-slide' : '' }}"
-             @if($featuredSliderAutoplay && $featuredSlideCount > 1) data-bs-ride="carousel" data-bs-interval="{{ $featuredSliderSpeed }}" @endif>
-            <div class="carousel-inner">
-                @foreach($featuredNews as $featuredItem)
-                    @php
-                        $featuredTitle = $yhData->title($featuredItem);
-                        $featuredDetails = \Illuminate\Support\Str::limit(trim(strip_tags((string) $yhData->details($featuredItem))), 170);
-                        $featuredUrl = Helper::topicURL($featuredItem->id, '', $featuredItem);
-                    @endphp
-                    <article class="carousel-item {{ $loop->first ? 'active' : '' }}">
+<section id="landing-block-{{ $TopicBlock->id }}" class="yh-featured-news afaq-featured-split {{ $TopicBlock->css_classes }}" aria-label="{{ $featuredSliderLabel }}" style="--featured-slide-duration: {{ $featuredSliderSpeed }}ms">
+    <div id="{{ $featuredCarouselId }}" class="carousel slide carousel-fade afaq-featured-carousel {{ $featuredSlideCount === 1 ? 'hero-single-slide' : '' }}"
+         @if($featuredSliderAutoplay && $featuredSlideCount > 1) data-bs-ride="carousel" data-bs-interval="{{ $featuredSliderSpeed }}" @endif>
+        <div class="carousel-inner">
+            @foreach($featuredNews as $featuredItem)
+                @php
+                    $featuredTitle = $yhData->title($featuredItem);
+                    $featuredDetails = \Illuminate\Support\Str::limit(trim(strip_tags((string) $yhData->details($featuredItem))), 170);
+                    $featuredUrl = Helper::topicURL($featuredItem->id, '', $featuredItem);
+                @endphp
+                <article class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                    <div class="afaq-featured-media" aria-hidden="true">
                         @if($featuredItem->photo_file)
-                            <img class="hero-image-stage" src="{{ route("fileView",
-                                ["path" => 'topics/'.$featuredItem->photo_file]) }}" alt="" loading="{{ $loop->first ? 'eager' : 'lazy' }}" decoding="async">
+                            <img src="{{ route('fileView', ['path' => 'topics/'.$featuredItem->photo_file]) }}" alt="" loading="{{ $loop->first ? 'eager' : 'lazy' }}" decoding="async">
                         @else
-                            <div class="hero-image-stage yh-featured-news__image-fallback" aria-hidden="true"><i class="fa-regular fa-newspaper"></i></div>
+                            <div class="afaq-featured-media-fallback"><i class="fa-regular fa-newspaper"></i></div>
                         @endif
-                        <span class="hero-image-frame" aria-hidden="true"></span>
-                        <div class="carousel-container">
-                            <div class="carousel-content container">
-                                <div class="slider-content">
-                                    {{-- <div class="hero-slide-meta">
-                                        <span class="hero-slide-meta-mark" aria-hidden="true"></span>
-                                        <span class="hero-slide-brand">{{ $featuredSliderLabel }}</span>
-                                        <span class="hero-slide-count">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }} <small>/ {{ str_pad((string) $featuredSlideCount, 2, '0', STR_PAD_LEFT) }}</small></span>
-                                    </div> --}}
-                                    <h2 class="slider-title">
-                                        <a href="{{$featuredUrl}}">{{ $featuredTitle }}</a>
-                                    </h2>
-                                    {{-- @if($featuredDetails)
-                                        <p class="slider-details">{{ $featuredDetails }}</p>
-                                    @endif --}}
-                                    {{-- <a href="{{ $featuredUrl }}" class="btn-theme slider-link">
-                                        <span>{{ __('yemen_home.news_read') }}</span>
-                                        <i class="bi bi-arrow-{{ @Helper::currentLanguage()->right }}" aria-hidden="true"></i>
-                                    </a> --}}
-                                    {{-- @if($featuredSliderAutoplay && $featuredSlideCount > 1)
-                                        <div class="hero-slide-progress" aria-hidden="true"><span></span></div>
-                                    @endif --}}
-                                </div>
+                        <span class="afaq-featured-media-line"></span>
+                    </div>
+                    <div class="afaq-featured-panel">
+                        <div class="afaq-featured-panel-inner">
+                            <div class="afaq-featured-eyebrow">
+                                <span class="afaq-featured-mark" aria-hidden="true"></span>
+                                <span>{{ $featuredSliderLabel }}</span>
+                                <span class="afaq-featured-number">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }} <small>/ {{ str_pad((string) $featuredSlideCount, 2, '0', STR_PAD_LEFT) }}</small></span>
                             </div>
+                            <h2 class="afaq-featured-title"><a href="{{ $featuredUrl }}">{{ $featuredTitle }}</a></h2>
+                            @if($featuredDetails)
+                                <p class="afaq-featured-description">{{ $featuredDetails }}</p>
+                            @endif
+                            <a href="{{ $featuredUrl }}" class="afaq-featured-link">
+                                <span>{{ __('yemen_home.news_read') }}</span>
+                                <i class="bi bi-arrow-{{ @Helper::currentLanguage()->right }}" aria-hidden="true"></i>
+                            </a>
                         </div>
-                    </article>
-                @endforeach
-            </div>
-            @if($featuredSlideCount > 1)
+                    </div>
+                </article>
+            @endforeach
+        </div>
+        @if($featuredSlideCount > 1)
+            <div class="afaq-featured-navigation">
                 <div class="carousel-indicators">
                     @foreach($featuredNews as $featuredItem)
                         <button type="button" data-bs-target="#{{ $featuredCarouselId }}" data-bs-slide-to="{{ $loop->index }}"
@@ -66,13 +54,15 @@
                                 aria-label="{{ __('yemen_home.news_featured') }} {{ $loop->iteration }}"></button>
                     @endforeach
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#{{ $featuredCarouselId }}" data-bs-slide="prev" aria-label="{{ __('yemen_home.previous') }}">
-                    <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#{{ $featuredCarouselId }}" data-bs-slide="next" aria-label="{{ __('yemen_home.next') }}">
-                    <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-                </button>
-            @endif
-        </div>
+                <div class="afaq-featured-arrows">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#{{ $featuredCarouselId }}" data-bs-slide="prev" aria-label="{{ __('yemen_home.previous') }}">
+                        <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#{{ $featuredCarouselId }}" data-bs-slide="next" aria-label="{{ __('yemen_home.next') }}">
+                        <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        @endif
     </div>
 </section>

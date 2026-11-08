@@ -1,22 +1,30 @@
+@php
+    $afaqHeaderPhone = trim((string) Helper::GeneralSiteSettings('contact_t5'));
+    $afaqHeaderEmail = trim((string) Helper::GeneralSiteSettings('contact_t6'));
+    if ($afaqHeaderPhone === '' || preg_match('/x{3,}/i', $afaqHeaderPhone)) {
+        $afaqHeaderPhone = '+968 9190 7789';
+    }
+    if ($afaqHeaderEmail === '' || str_contains(strtolower($afaqHeaderEmail), 'sitename.com')) {
+        $afaqHeaderEmail = 'info@afaq-solutions.com';
+    }
+@endphp
 <div id="topbar"
-     class="d-flex align-items-center {{ (Helper::GeneralSiteSettings("style_header"))?"fixed-top":"" }} {{ (Helper::GeneralSiteSettings("style_bg_type"))?"topbar-no-bg":"header-bg" }}">
+     class="afaq-topbar d-flex align-items-center {{ (Helper::GeneralSiteSettings("style_header"))?"fixed-top":"" }} {{ (Helper::GeneralSiteSettings("style_bg_type"))?"topbar-no-bg":"header-bg" }}">
     <div class="container d-flex justify-content-between">
         <div class="contact-info d-flex align-items-center">
-            @if(Helper::GeneralSiteSettings("contact_t5") !="")
+            <span class="afaq-topbar-statement">{{ @Helper::currentLanguage()->code === 'ar' ? 'طاقة بإتقان هندسي' : 'ENERGY. ENGINEERED.' }}</span>
+            @if($afaqHeaderPhone !== '')
                 <span
                     class="{{ (Helper::GeneralWebmasterSettings("header_search_status") && Helper::GeneralSiteSettings("style_change"))?"d-none d-lg-block":"" }}">
                 <i class="fa fa-phone"></i> &nbsp;<a
-                        href="tel:{{ Helper::GeneralSiteSettings("contact_t5") }}"><span
-                            dir="ltr">{{ Helper::GeneralSiteSettings("contact_t5") }}</span></a>
+                        href="tel:{{ preg_replace('/[^+0-9]/', '', $afaqHeaderPhone) }}"><span
+                            dir="ltr">{{ $afaqHeaderPhone }}</span></a>
                     </span>
             @endif
-            @if(Helper::GeneralSiteSettings("contact_t6") !="")
+            @if($afaqHeaderEmail !== '')
                 <span class="top-email d-none d-lg-block ">
-                    @if(Helper::GeneralSiteSettings("contact_t3") !="")
-                        &nbsp; | &nbsp;
-                    @endif
                     <i class="fa fa-envelope"></i> &nbsp;<a
-                        href="mailto:{{ Helper::GeneralSiteSettings("contact_t6") }}">{{ Helper::GeneralSiteSettings("contact_t6") }}</a>
+                        href="mailto:{{ $afaqHeaderEmail }}">{{ $afaqHeaderEmail }}</a>
                     </span>
             @endif
         </div>

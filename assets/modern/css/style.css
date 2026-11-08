@@ -2026,10 +2026,12 @@ html[dir="rtl"] .gallery .gallery-deck-item:nth-child(4n + 3) {
     color: rgba(255, 255, 255, .72)
 }
 
-#footer .credits {
+#footer .credits,
+#footer .credits a {
     padding-top: 5px;
     font-size: 13px;
-    color: rgba(255, 255, 255, .5)
+    color: rgba(255, 255, 255, .5) !important;
+    transition: .3s
 }
 
 #footer .social-links {

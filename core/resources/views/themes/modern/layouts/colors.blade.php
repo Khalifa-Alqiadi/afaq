@@ -129,9 +129,9 @@ $hero_shadow_color = Helper::colorHexToDarken($style_color2, 3.2);
         border-color: {{ Helper::GeneralSiteSettings("style_color2") }}  !important;
     }
 
-    .btn-theme:hover, #footer .footer-newsletter form button, .back-to-top:hover {
+    /* .btn-theme:hover, #footer .footer-newsletter form button, .back-to-top:hover {
         background: {{ Helper::GeneralSiteSettings("style_color2") }};
-    }
+    } */
 
 
 
@@ -371,7 +371,7 @@ $hero_shadow_color = Helper::colorHexToDarken($style_color2, 3.2);
         color: {{ Helper::GeneralSiteSettings("style_color2") }};
     }
 
-    #footer.modern-footer {
+    #footer.modern-footer:not(.afaq-footer) {
         background: linear-gradient(135deg, {{ $style_color2 }} 0%, {{ Helper::colorHexToDarken($style_color2,1.55) }} 56%, {{ $style_color1 }} 145%);
         background-color: {{ $style_color2 }};
     }
