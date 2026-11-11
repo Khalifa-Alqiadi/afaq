@@ -32,19 +32,17 @@
         $custom_js_code = $Topic->js_code;
         $custom_body_code = $Topic->body_code;
         ?>
-        <section class="breadcrumbs">
-            <div class="container">
-
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2>{{ $title }}</h2>
-                    <ol>
-                        <li><a href="{{ Helper::homeURL() }}">{{ __("backend.home") }}</a></li>
-                        <li>{{ $title }}</li>
-                    </ol>
+        @include(theme_view('layouts.breadcrumbs'), ['breadcrumbItems' => [['label' => $title]]])
+        <header class="afaq-contact-hero">
+            <div class="container afaq-contact-hero__inner">
+                <div>
+                    <span class="afaq-contact-eyebrow"><span></span> AFAQ / {{ @Helper::currentLanguage()->code == 'ar' ? 'تواصل معنا' : 'CONTACT' }}</span>
+                    <h1>{{ $title }}</h1>
+                    <p>{{ @Helper::currentLanguage()->code == 'ar' ? 'لديك مشروع أو استفسار؟ أخبرنا بما تحتاجه، وسنبدأ الحديث من هناك.' : 'Have a project or a question? Tell us what you need and let’s start the conversation.' }}</p>
                 </div>
-
+                <span class="afaq-contact-hero__mark" aria-hidden="true">AFAQ<span>.</span></span>
             </div>
-        </section>
+        </header>
         @if (@$WebmasterSection->type == 10)
             @if($Topic->topicBlocks->where("status",1)->count() >0)
                 @foreach($Topic->topicBlocks->where("status",1) as $TopicBlock)
@@ -86,7 +84,7 @@
                 @endforeach
             @endif
         @endif
-        <section id="contact" class="contact">
+        <section id="contact" class="contact afaq-contact-section">
             @if (@$WebmasterSection->type == 0)
                 <div class="container">
                     <div class="row">
@@ -209,10 +207,13 @@
                     {!! Blade::render($custom_body_code) !!}
                 @endif
 
-                <div class="row">
+                <div class="row afaq-contact-layout">
 
-                    <div class="col-lg-4">
-                        <h3 class="sub-title">{{ __('frontend.contactDetails') }}</h3>
+                    <div class="col-lg-4 afaq-contact-details">
+                        <div class="afaq-contact-details__heading">
+                            <span>01 / {{ @Helper::currentLanguage()->code == 'ar' ? 'قنوات التواصل' : 'CONTACT CHANNELS' }}</span>
+                            <h2>{{ __('frontend.contactDetails') }}</h2>
+                        </div>
                         <div class="info">
                             @if(Helper::GeneralSiteSettings("contact_t1_" . @Helper::currentLanguage()->code) !="")
                                 <div class="address">
@@ -263,30 +264,39 @@
 
                     </div>
 
-                    <div class="col-lg-8 mt-5 mt-lg-0" id="contact-form-container">
-                        <h3 class="sub-title">{{ __('frontend.getInTouch') }}</h3>
+                    <div class="col-lg-8" id="contact-form-container">
+                        <div class="afaq-contact-form-heading">
+                            <span>02 / {{ @Helper::currentLanguage()->code == 'ar' ? 'أرسل رسالة' : 'SEND A MESSAGE' }}</span>
+                            <h2>{{ __('frontend.getInTouch') }}</h2>
+                            <p>{{ @Helper::currentLanguage()->code == 'ar' ? 'عبّئ البيانات التالية وسنتواصل معك عبر وسيلة الاتصال التي تفضلها.' : 'Share a few details and we will get back to you using your contact information.' }}</p>
+                        </div>
                         <form method="POST" action="{{ route("contactPageSubmit") }}" class="php-email-form" id="contactForm">
                             @csrf
                             @honeypot
                             <div class="row">
                                 <div class="col-md-4 form-group">
+                                    <label for="contact_name">{{ __('frontend.yourName') }}</label>
                                     <input type="text" autocomplete="off" name="contact_name" id="contact_name" value="" required maxlength="100"
                                            placeholder="{{ __('frontend.yourName') }}" class="form-control"/>
                                 </div>
                                 <div class="col-md-4 form-group mt-3 mt-md-0">
+                                    <label for="contact_email">{{ __('frontend.yourEmail') }}</label>
                                     <input type="email" autocomplete="off" name="contact_email" id="contact_email" value="" required maxlength="100"
                                            placeholder="{{ __('frontend.yourEmail') }}" class="form-control"/>
                                 </div>
                                 <div class="col-md-4 form-group mt-3 mt-md-0">
+                                    <label for="contact_phone">{{ __('frontend.phone') }}</label>
                                     <input type="text" autocomplete="off" name="contact_phone" id="contact_phone" value="" required minlength="5" maxlength="15" placeholder="{{ __('frontend.phone') }}" class="form-control" dir="ltr"/>
                                 </div>
                             </div>
                             <div class="form-group mt-3">
+                                <label for="contact_subject">{{ __('frontend.subject') }}</label>
                                 <input type="text" autocomplete="off" name="contact_subject" id="contact_subject" value="" required maxlength="100"
                                        placeholder="{{ __('frontend.subject') }}" class="form-control"/>
                             </div>
                             <div class="form-group mt-3">
-                                <textarea name="contact_message" id="contact_message" class="form-control" placeholder="{{ __('frontend.message') }}" rows="10" required></textarea>
+                                <label for="contact_message">{{ __('frontend.message') }}</label>
+                                <textarea name="contact_message" id="contact_message" class="form-control" placeholder="{{ __('frontend.message') }}" rows="7" required></textarea>
                             </div>
 
                             @include('common.recaptcha', ['action' => 'contact'])

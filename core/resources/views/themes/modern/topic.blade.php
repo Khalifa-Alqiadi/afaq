@@ -76,8 +76,7 @@
                 $attach_file = '';
             }
         }
-        $afaqModule = in_array((string) (@$WebmasterSection->seo_url_slug_en ?? ''), ['afaq-services', 'afaq-components', 'afaq-systems', 'afaq-sectors', 'afaq-pages'], true)
-            ? str_replace('afaq-', '', $WebmasterSection->seo_url_slug_en) : null;
+        $afaqModule = config('afaq.module_ids', [])[(int) (@$WebmasterSection->id ?? 0)] ?? null;
         ?>
         @if($afaqModule)
             @include(theme_view('topic.afaq-detail'))
@@ -85,28 +84,14 @@
         @if ($category_image != '')
             @include(theme_view('topic.cover'))
         @endif
-        <section class="breadcrumbs {{ (int) @$WebmasterSection->id === 3 ? 'modern-news-breadcrumbs' : '' }}">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2>{!! @$WebmasterSection->id == 1 ? $title : $page_title !!}</h2>
-                    <ol>
-                        <li><a href="{{ Helper::homeURL() }}">{{ __('backend.home') }}</a></li>
-                        @if ($webmaster_section_title != '')
-                            <li class="active"><a
-                                    href="{{ Helper::sectionURL(@$WebmasterSection->id) }}">{!! @$WebmasterSection->id == 1 ? $title : $webmaster_section_title !!}</a>
-                            </li>
-                        @else
-                            <li class="active">{{ $title }}</li>
-                        @endif
-                        @if ($category_title != '')
-                            <li class="active"><a
-                                    href="{{ Helper::categoryURL(@$CurrentCategory->id) }}">{{ $category_title }}</a>
-                            </li>
-                        @endif
-                    </ol>
-                </div>
-            </div>
-        </section>
+        @php
+            $breadcrumbItems = [];
+            if ($webmaster_section_title !== '' && (int) @$WebmasterSection->id !== 1) $breadcrumbItems[] = ['label' => $webmaster_section_title, 'url' => Helper::sectionURL($WebmasterSection->id)];
+            if ($category_title !== '') $breadcrumbItems[] = ['label' => $category_title, 'url' => Helper::categoryURL($CurrentCategory->id)];
+            $breadcrumbItems[] = ['label' => $title];
+            $breadcrumbHeading = null;
+        @endphp
+        @include(theme_view('layouts.breadcrumbs'))
         @if (!$Topic->status)
             <div class="container">
                 <div class="alert alert-warning alert-dismissible fade show mt-3 mb-0" role="alert">

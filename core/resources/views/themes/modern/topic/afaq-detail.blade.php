@@ -1,11 +1,10 @@
 @php
     $afaqLanguage = @Helper::currentLanguage()->code;
     $afaqIsArabic = $afaqLanguage === 'ar';
-    $afaqSectionTitle = $webmaster_section_title;
-    $afaqSectionUrl = $afaqModule === 'pages' ? null : Helper::sectionURL($WebmasterSection->id);
-    $afaqCategoryTitle = $category_title;
-    $afaqCategoryUrl = $category_title !== '' ? Helper::categoryURL($CurrentCategory->id) : null;
-    $afaqCurrentTitle = $title;
+    $afaqSectionUrl = Helper::sectionURL($WebmasterSection->id);
+    $breadcrumbItems = [['label' => $webmaster_section_title, 'url' => $afaqSectionUrl]];
+    if ($category_title !== '') $breadcrumbItems[] = ['label' => $category_title, 'url' => Helper::categoryURL($CurrentCategory->id)];
+    $breadcrumbItems[] = ['label' => $title];
     $afaqIcon = trim((string) $Topic->icon);
     $afaqIcon = $afaqIcon !== '' && preg_match('/^[a-zA-Z0-9_\s-]+$/', $afaqIcon) ? $afaqIcon : [
         'services' => 'fa-solid fa-compass-drafting',
@@ -23,7 +22,7 @@
 <main class="afaq-inner afaq-inner--{{ $afaqModule }} afaq-detail" dir="{{ $afaqIsArabic ? 'rtl' : 'ltr' }}">
     <header class="afaq-detail__hero">
         <div class="container">
-            @include(theme_view('topic.afaq-breadcrumbs'))
+            @include(theme_view('layouts.breadcrumbs'), ['breadcrumbEmbedded' => true])
             <div class="afaq-detail__hero-grid">
                 <div class="afaq-detail__hero-copy">
                     <div class="afaq-detail__overline"><span class="afaq-detail__overline-line"></span>AFAQ / {{ $afaqModule === 'pages' ? ($afaqIsArabic ? 'عن آفاق' : 'ABOUT AFAQ') : strtoupper($afaqModule) }}</div>

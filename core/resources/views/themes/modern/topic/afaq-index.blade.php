@@ -2,11 +2,9 @@
     $afaqLanguage = @Helper::currentLanguage()->code;
     $afaqFallback = config('smartend.default_language');
     $afaqIsArabic = $afaqLanguage === 'ar';
-    $afaqSectionTitle = $webmaster_section_title;
-    $afaqSectionUrl = $category_title !== '' ? Helper::sectionURL($WebmasterSection->id) : null;
-    $afaqCategoryTitle = $category_title;
-    $afaqCategoryUrl = $category_title !== '' ? Helper::categoryURL($CurrentCategory->id) : null;
-    $afaqCurrentTitle = $category_title !== '' ? $category_title : $webmaster_section_title;
+    $breadcrumbItems = $category_title !== ''
+        ? [['label' => $webmaster_section_title, 'url' => Helper::sectionURL($WebmasterSection->id)], ['label' => $category_title]]
+        : [['label' => $webmaster_section_title]];
     $afaqHeroImages = ['services' => 'afaq-profile-page-2.png', 'components' => 'afaq-profile-page-1.png', 'systems' => 'afaq-profile-page-2.png', 'sectors' => 'afaq-profile-page-3.png'];
     $afaqIcons = [
         'services' => ['fa-solid fa-compass-drafting', 'fa-solid fa-boxes-stacked', 'fa-solid fa-screwdriver-wrench', 'fa-solid fa-gauge-high'],
@@ -26,7 +24,7 @@
     <header class="afaq-inner-hero">
         <div class="container afaq-inner-hero__grid">
             <div class="afaq-inner-hero__copy">
-                @include(theme_view('topic.afaq-breadcrumbs'))
+                @include(theme_view('layouts.breadcrumbs'), ['breadcrumbEmbedded' => true])
                 <span class="afaq-inner-hero__eyebrow"><span></span>AFAQ / {{ $afaqLabels[$afaqModule] }}</span>
                 <h1>{{ $page_title }}</h1>
                 @if($afaqIntro !== '')<p>{{ $afaqIntro }}</p>@endif

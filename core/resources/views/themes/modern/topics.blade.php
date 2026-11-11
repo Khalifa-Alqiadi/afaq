@@ -57,8 +57,7 @@
         if (@$page_type == "tag" && trim(@$TagDescription)) {
             $Category_description = @$TagDescription;
         }
-        $afaqModule = in_array((int) (@$WebmasterSection->id ?? ''), [15, 16, 17, 18], true)
-            ? str_replace('afaq-', '', $WebmasterSection->seo_url_slug_en) : null;
+        $afaqModule = config('afaq.module_ids', [])[(int) (@$WebmasterSection->id ?? 0)] ?? null;
         ?>
         @if($afaqModule && empty($search_word) && empty($DBTag))
             @include(theme_view('topic.afaq-index'))
@@ -66,39 +65,21 @@
         @if($category_image !="")
             @include(theme_view("topic.cover"))
         @endif
-        <section class="breadcrumbs {{ (int) @$WebmasterSection->id === 3 ? 'modern-news-breadcrumbs' : '' }}">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h1>{{  (@$search_word !="")?(__('backend.resultsFoundFor')." [ ".@$search_word." ]"):$page_title }}</h1>
-                    <ol>
-                        <li><a href="{{ Helper::homeURL() }}">{{ __("backend.home") }}</a></li>
-                        @if(@$search_word !="")
-                            <li class="active">{!! __("backend.search") !!}</li>
-                        @elseif($webmaster_section_title !="")
-                            <li class="active"><a
-                                    href="{{ Helper::sectionURL(@$WebmasterSection->id) }}">{!! $webmaster_section_title !!}</a>
-                            </li>
-                        @elseif(@$search_word!="")
-                            <li class="active">{{ @$search_word }}</li>
-                        @elseif(!empty(@$DBTag))
-                            <li class="active">{{ @$DBTag->title }}</li>
-                        @else
-                            <li class="active">{{ @$User->name }}</li>
-                        @endif
-                        @if($category_title !="")
-                            <li class="active"><a
-                                    href="{{ Helper::categoryURL(@$CurrentCategory->id) }}">{{ $category_title }}</a>
-                            </li>
-                        @endif
-                    </ol>
-                </div>
-                @if($Category_description)
-                    <div class="text-muted mt-2 category-details">
-                        {!! nl2br($Category_description) !!}
-                    </div>
-                @endif
-            </div>
-        </section>
+        @php
+            $hasSearch = trim((string) (@$search_word ?? '')) !== '';
+            $breadcrumbHeading = $hasSearch ? __('backend.resultsFoundFor').' [ '.$search_word.' ]' : $page_title;
+            $breadcrumbItems = [];
+            if ($hasSearch) {
+                $breadcrumbItems[] = ['label' => __('backend.search')];
+            } else {
+                if ($webmaster_section_title !== '') $breadcrumbItems[] = ['label' => $webmaster_section_title, 'url' => ($category_title !== '' || !empty($DBTag)) ? Helper::sectionURL($WebmasterSection->id) : null];
+                if ($category_title !== '') $breadcrumbItems[] = ['label' => $category_title];
+                elseif (!empty($DBTag)) $breadcrumbItems[] = ['label' => $DBTag->title];
+                elseif ($webmaster_section_title === '' && !empty($User->name)) $breadcrumbItems[] = ['label' => $User->name];
+            }
+        @endphp
+        @include(theme_view('layouts.breadcrumbs'))
+        @if($Category_description)<div class="container category-details">{!! nl2br($Category_description) !!}</div>@endif
         <section id="content">
             <div class="container">
                 <div class="row">
