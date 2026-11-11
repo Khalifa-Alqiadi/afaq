@@ -80,7 +80,7 @@
         <hr>
         <div class="form-group">
             <label for="style_footer_logo">{{ __('backend.footerLogo') }}</label>
-            @if($Setting->style_footer_logo)
+            {{-- @if($Setting->style_footer_logo)
                 <div class="box p-a-sm m-b-sm" style="max-width: 300px">
                     <a target="_blank" href="{{ route('fileView', ['path' => 'settings/'.$Setting->style_footer_logo]) }}">
                         <img src="{{ route('fileView', ['path' => 'settings/'.$Setting->style_footer_logo]) }}"
@@ -94,7 +94,47 @@
                 </div>
             @endif
             <input type="file" name="style_footer_logo" id="style_footer_logo" class="form-control" accept="image/*">
-            <small>{{ __('backend.imagesTypes') }}</small>
+            <small>{{ __('backend.imagesTypes') }}</small> --}}
+            @foreach(Helper::languagesList() as $ActiveLanguage)
+                <div class="col-sm-6 m-b-2">
+                    <label>{!!  __('backend.siteLogo') !!}</label> {!! @Helper::languageName($ActiveLanguage) !!}
+                    @if($Setting->{'style_footer_logo_'.@$ActiveLanguage->code}!="")
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12 box p-a-xs text-center">
+                                    <a target="_blank"
+                                       href="{{ route("fileView",["path" =>'settings/'.$Setting->{'style_footer_logo_'.@$ActiveLanguage->code}]) }}"><img
+                                            src="{{ route("fileView",["path" =>'settings/'.$Setting->{'style_footer_logo_'.@$ActiveLanguage->code}]) }}"
+                                            class="img-responsive" id="style_footer_logo_{{ @$ActiveLanguage->code }}_prv"
+                                            style="width: auto;max-width: 260px;max-height: 60px">
+                                        <br>
+                                        <small>{{ $Setting->{'style_footer_logo_'.@$ActiveLanguage->code} }}</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12 box p-a-xs text-center">
+                                    <img
+                                        src="{{ route("fileView",["path" =>'settings/nologo.png']) }}"
+                                        class="img-responsive" id="style_logo_{{ @$ActiveLanguage->code }}_prv"
+                                        style="width: auto;max-width: 260px;max-height: 60px">
+                                    <br>
+                                    <small>nologo.png</small>
+
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    <input type="file" name="style_footer_logo_{{ @$ActiveLanguage->code }}" id="style_footer_logo_{{ @$ActiveLanguage->code }}" class="form-control" accept="accept'=>'image/*">
+                    <small>
+                        <i class="material-icons">&#xe8fd;</i>( 260x60 px ) -
+                        {!!  __('backend.imagesTypes') !!}
+                    </small>
+                </div>
+            @endforeach
         </div>
         <hr>
         <div class="form-group row">

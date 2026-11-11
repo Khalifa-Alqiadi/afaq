@@ -9,6 +9,7 @@ $hero_shadow_color = Helper::colorHexToDarken($style_color2, 3.2);
 ?>
 <style>
     :root {
+        --afaq-orange: #FE7D25;
         --modern-author-accent: {{ $style_color1 }};
         --modern-author-ink: {{ $style_color2 }};
         --modern-author-surface: {{ $style_color3 }};

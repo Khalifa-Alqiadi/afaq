@@ -1,101 +1,136 @@
-<?php
-$title_var = "title_".@Helper::currentLanguage()->code;
-$title_var2 = "title_".config('smartend.default_language');
-$details_var = "details_".@Helper::currentLanguage()->code;
-$details_var2 = "details_".config('smartend.default_language');
+@php
+    $language = @Helper::currentLanguage()->code;
+    $fallbackLanguage = config('smartend.default_language');
+    $isArabic = $language === 'ar';
+    $topics = @$TopicBlockContents->module_id
+        ? Helper::Topics($TopicBlockContents->module_id, @$TopicBlockContents->category_ids, @$TopicBlockContents->records_count, 0, @$TopicBlockContents->records_order)
+        : [];
+    $sectionUrl = @$TopicBlockContents->module_id ? Helper::sectionURL($TopicBlockContents->module_id) : '';
+    $limit = max(1, (int) (@$TopicBlockContents->records_count ?: 6));
+    $heading = $TopicBlockContents->{'title_'.$language} ?: ($TopicBlockContents->{'title_'.$fallbackLanguage} ?? '');
+    $intro = $TopicBlockContents->{'desc_'.$language} ?: ($TopicBlockContents->{'desc_'.$fallbackLanguage} ?? '');
+    $backgroundFile = $TopicBlock->image_status ? ($TopicBlockContents->{'bg_'.$language} ?? '') : '';
+    $backgroundStyle = trim(($TopicBlock->bg_color ? 'background-color: '.$TopicBlock->bg_color.';' : '')
+        .($backgroundFile ? 'background-image: url('.route('fileView', ['path' => 'topics/'.$backgroundFile]).'); background-size: cover; background-position: center;' : ''));
+    $disk = \Illuminate\Support\Facades\Storage::disk(config('filesystems.default'));
+    $items = [];
+    foreach ($topics as $topic) {
+        $title = $topic->{'title_'.$language} ?: $topic->{'title_'.$fallbackLanguage};
+        $details = $topic->{'details_'.$language} ?: $topic->{'details_'.$fallbackLanguage};
+        $description = \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/u', ' ', strip_tags((string) $details))), 140);
+        $isProjectImage = static fn ($file) => $file && !in_array(strtolower(basename((string) $file)), ['default.png', 'noimg.png', 'nav-bg.png', 'nofile.png'], true);
+        $photos = $topic->photos->pluck('file')->filter($isProjectImage)->values();
+        if ($photos->isEmpty() && $isProjectImage($topic->photo_file)) $photos = collect([$topic->photo_file]);
+        if ($photos->isEmpty()) $photos = collect([null]);
+        foreach ($photos as $file) {
+            $hasImage = $file && $disk->exists('topics/'.$file);
+            $items[] = [
+                'title' => $title,
+                'description' => $description,
+                'image' => $hasImage ? route('fileView', ['path' => 'topics/'.$file]) : null,
+                'link' => Helper::topicURL($topic->id, '', $topic),
+            ];
+            if (count($items) >= $limit) break 2;
+        }
+    }
+@endphp
 
-$block_style = "";
-if (@$TopicBlock->bg_color != "") {
-    $block_style = "background-color: ".@$TopicBlock->bg_color.";";
-}
-if (@$TopicBlock->divider_status) {
-    @$TopicBlock->css_classes .= " divider";
-}
-if (@$TopicBlock->image_status && @$TopicBlockContents->{"bg_".@Helper::currentLanguage()->code} != "") {
-    $block_style .= "background-image: url(".route("fileView",
-            ["path" => 'topics/'.@$TopicBlockContents->{"bg_".@Helper::currentLanguage()->code}]).");background-size:cover;background-repeat: no-repeat;background-position: center top;";
-}
-$BlockTopics = [];
-$section_url = "";
-$PhotosLimit = @$TopicBlockContents->records_count;
-if (@$TopicBlockContents->module_id) {
-    $BlockTopics = Helper::Topics(@$TopicBlockContents->module_id, @$TopicBlockContents->category_ids,
-        @$TopicBlockContents->records_count, 0, @$TopicBlockContents->records_order);
-    $section_url = Helper::sectionURL(@$TopicBlockContents->module_id);
-}
-?>
-
-@if(count($BlockTopics) >0)
-    <section id="landing-block-{{ @$TopicBlock->id }}" class="gallery landing-block {{ @$TopicBlock->css_classes  }}" style="{{ $block_style }}">
-        <div class="container">
-            @if(@$TopicBlock->title_status || @$TopicBlock->desc_status)
-                <div class="section-title">
-                    @if(@$TopicBlock->title_status)
-                        <h2>{{ @$TopicBlockContents->{"title_".@Helper::currentLanguage()->code} }}</h2>
-                    @endif
-                    @if(@$TopicBlock->desc_status)
-                        <p>{!! nl2br(@$TopicBlockContents->{"desc_".@Helper::currentLanguage()->code}) !!}</p>
-                    @endif
-                </div>
-            @endif
-        </div>
-
-        <div class="container-fluid gallery-showcase">
-            <div class="gallery-deck" role="list">
-                    <?php
-                    $section_url = "";
-                    $ph_count = 0;
-                    ?>
-                @foreach($BlockTopics as $BlockTopic)
-                        <?php
-                        if ($BlockTopic->$title_var != "") {
-                            $title = $BlockTopic->$title_var;
-                        } else {
-                            $title = $BlockTopic->$title_var2;
-                        }
-
-                        if ($section_url == "") {
-                            $section_url = Helper::sectionURL($BlockTopic->webmaster_id);
-                        }
-                        ?>
-                    @foreach($BlockTopic->photos as $photo)
-                        @if($ph_count<$PhotosLimit)
-                            <div class="gallery-deck-item" role="listitem">
-                                <div class="gallery-item">
-                                    <a href="{{ route("fileView",["path" =>'topics/'.$photo->file ]) }}"
-                                       class="galelry-lightbox gallery-card-link" title="{{ $title }}"
-                                       aria-label="{{ $title }}">
-                                        <img src="{{ route("fileView",["path" =>'topics/'.$photo->file ]) }}?w=720&h=960"
-                                             width="720" height="960" loading="lazy"
-                                             sizes="(min-width: 992px) 28vw, (min-width: 480px) 50vw, 82vw"
-                                             alt="{{ $title }}" class="gallery-card-image">
-                                        <span class="gallery-card-action" aria-hidden="true">
-                                            <i class="bi bi-arrows-fullscreen"></i>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        @else
-                            @break
-                        @endif
-                            <?php
-                            $ph_count++;
-                            ?>
-                    @endforeach
-                @endforeach
-
+@if(count($items))
+<section id="landing-block-{{ (int) $TopicBlock->id }}" class="gallery afaq-gallery landing-block {{ $TopicBlock->css_classes }} {{ $TopicBlock->divider_status ? 'divider' : '' }}" @if($backgroundStyle !== '') style="{{ $backgroundStyle }}" @endif>
+    <div class="container">
+        <div class="afaq-gallery__heading">
+            <div>
+                <div class="afaq-gallery__eyebrow"><span class="afaq-gallery__eyebrow-line"></span>AFAQ / {{ $isArabic ? 'مشاريعنا' : 'SELECTED PROJECTS' }}</div>
+                @if($TopicBlock->title_status && $heading !== '')<h2>{{ $heading }}</h2>@endif
             </div>
-            @if (@$TopicBlock->more_btn_status)
-                <div class="row mt-3">
-                    <div class="col-lg-12">
-                        <div class="more-btn">
-                            <a href="{{ url($section_url) }}" class="btn btn-theme">
-                                {{ __('frontend.viewMore') }}
-                                <i class="fa-solid fa-arrow-right-long staff-cta-arrow" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            @endif
+            @if($TopicBlock->desc_status && $intro !== '')<p>{{ $intro }}</p>@endif
         </div>
-    </section>
+        <div class="afaq-gallery__stage">
+            <div class="afaq-gallery__slider swiper" dir="{{ $isArabic ? 'rtl' : 'ltr' }}" aria-label="{{ $isArabic ? 'معرض المشاريع' : 'Project gallery' }}">
+                <div class="swiper-wrapper">
+                    @foreach($items as $item)
+                        <div class="swiper-slide afaq-gallery__slide">
+                            <a class="afaq-gallery__media {{ $item['image'] ? 'galelry-lightbox' : 'afaq-gallery__media--empty' }}" href="{{ $item['image'] ?: $item['link'] }}" @if($item['image']) data-gallery="afaq-gallery-{{ (int) $TopicBlock->id }}" @endif title="{{ $item['title'] }}" aria-label="{{ $item['image'] ? ($isArabic ? 'تكبير صورة ' : 'View image: ').$item['title'] : $item['title'] }}">
+                                @if($item['image'])
+                                    <img src="{{ $item['image'] }}?w=1600&h=950&r=fit" alt="{{ $item['title'] }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}" width="1600" height="950">
+                                @else
+                                    <span class="afaq-gallery__geometry" aria-hidden="true"><span></span><span></span><span></span></span>
+                                @endif
+                            </a>
+                            <div class="afaq-gallery__veil" aria-hidden="true"></div>
+                            <div class="afaq-gallery__slide-top"><span>AFAQ <span class="afaq-gallery__slash">/</span> {{ $isArabic ? 'أعمال مختارة' : 'SELECTED WORK' }}</span><span>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }} / {{ str_pad(count($items), 2, '0', STR_PAD_LEFT) }}</span></div>
+                            <div class="afaq-gallery__slide-copy">
+                                <span class="afaq-gallery__slide-kicker">{{ $isArabic ? 'مشروع' : 'PROJECT' }} {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                                <h3>{{ $item['title'] }}</h3>
+                                <a class="afaq-gallery__project-link" href="{{ $item['link'] }}">{{ $isArabic ? 'تفاصيل المشروع' : 'EXPLORE PROJECT' }} <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="afaq-gallery__side-label" aria-hidden="true">AFAQ <span>—</span> ENERGY ENGINEERED</div>
+        </div>
+        <div class="afaq-gallery__toolbar">
+            <div class="afaq-gallery__navigation">
+                <button type="button" class="afaq-gallery__prev" aria-label="{{ $isArabic ? 'الصورة السابقة' : 'Previous project' }}"><i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></button>
+                <button type="button" class="afaq-gallery__next" aria-label="{{ $isArabic ? 'الصورة التالية' : 'Next project' }}"><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
+            </div>
+            <div class="afaq-gallery__progress" aria-hidden="true"></div>
+            <span class="afaq-gallery__counter" aria-hidden="true"><strong class="afaq-gallery__current">01</strong><span>/</span>{{ str_pad(count($items), 2, '0', STR_PAD_LEFT) }}</span>
+            @if($TopicBlock->more_btn_status && $sectionUrl !== '')<a href="{{ url($sectionUrl) }}" class="afaq-gallery__more">{{ __('frontend.viewMore') }} <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>@endif
+        </div>
+        @if(count($items) > 1)
+            <div class="afaq-gallery__filmstrip" aria-label="{{ $isArabic ? 'اختر مشروعًا' : 'Choose a project' }}">
+                @foreach($items as $item)
+                    <button type="button" class="afaq-gallery__film-item {{ $loop->first ? 'is-active' : '' }}" data-gallery-index="{{ $loop->index }}" aria-label="{{ $item['title'] }}" aria-pressed="{{ $loop->first ? 'true' : 'false' }}">
+                        <span class="afaq-gallery__film-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                        <span class="afaq-gallery__film-title">{{ $item['title'] }}</span>
+                        <span class="afaq-gallery__film-line" aria-hidden="true"></span>
+                    </button>
+                @endforeach
+            </div>
+        @endif
+    </div>
+</section>
+@push('after-scripts')
+<script>
+(function () {
+    var section = document.getElementById('landing-block-{{ (int) $TopicBlock->id }}');
+    if (!section) return;
+    var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function initGallery() {
+        if (typeof Swiper === 'undefined') return;
+        var element = section.querySelector('.afaq-gallery__slider');
+        if (!element || element.classList.contains('swiper-initialized')) return;
+        var tabs = Array.prototype.slice.call(section.querySelectorAll('.afaq-gallery__film-item'));
+        var current = section.querySelector('.afaq-gallery__current');
+        var slider = new Swiper(element, {
+            slidesPerView: 1,
+            speed: reducedMotion ? 0 : 850,
+            effect: reducedMotion ? 'slide' : 'fade',
+            fadeEffect: { crossFade: true },
+            rewind: true,
+            keyboard: { enabled: true, onlyInViewport: true },
+            navigation: { prevEl: section.querySelector('.afaq-gallery__prev'), nextEl: section.querySelector('.afaq-gallery__next') },
+            pagination: { el: section.querySelector('.afaq-gallery__progress'), type: 'progressbar' },
+            on: { slideChange: function () {
+                current.textContent = String(this.activeIndex + 1).padStart(2, '0');
+                var activeIndex = this.activeIndex;
+                tabs.forEach(function (tab, index) {
+                    var active = index === activeIndex;
+                    tab.classList.toggle('is-active', active);
+                    tab.setAttribute('aria-pressed', active ? 'true' : 'false');
+                });
+            } }
+        });
+        tabs.forEach(function (tab) {
+            tab.addEventListener('click', function () { slider.slideTo(Number(tab.dataset.galleryIndex)); });
+        });
+        if (slider.slides.length <= 1) section.classList.add('afaq-gallery--single');
+    }
+    if (document.readyState === 'complete') initGallery();
+    else window.addEventListener('load', initGallery, { once: true });
+})();
+</script>
+@endpush
 @endif

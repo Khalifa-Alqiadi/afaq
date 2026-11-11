@@ -109,6 +109,26 @@ class SettingsController extends Controller
 
                     $Setting->{"style_logo_".$ActiveLanguage->code} = $fileFinalName;
                 }
+                $fileFooterFinalName = null;
+                $formFileName = "style_footer_logo_".$ActiveLanguage->code;
+                if ($request->hasFile($formFileName)) {
+                    // validate image
+                    $this->validate($request, [
+                        $formFileName => 'file|mimes:'.config('filesystems.allowed_image_types')
+                    ]);
+                    $FileInfo = FileHelper::uploadFile($request->file($formFileName), $this->uploadPath, 0);
+                    $fileFooterFinalName = @$FileInfo['name'];
+                }
+
+                //save file name
+                if ($fileFooterFinalName != "") {
+                    // Delete a banner file
+                    if ($Setting->{"style_footer_logo_".$ActiveLanguage->code} != "" && $Setting->{"style_footer_logo_".$ActiveLanguage->code} != "nologo.png") {
+                        FileHelper::deleteFile($this->uploadPath."/".$Setting->{"style_footer_logo_".$ActiveLanguage->code});
+                    }
+
+                    $Setting->{"style_footer_logo_".$ActiveLanguage->code} = $fileFooterFinalName;
+                }
 
                 $Setting->{"site_title_".$ActiveLanguage->code} = strip_tags($request->{"site_title_".$ActiveLanguage->code});
                 $Setting->{"site_desc_".$ActiveLanguage->code} = strip_tags($request->{"site_desc_".$ActiveLanguage->code});

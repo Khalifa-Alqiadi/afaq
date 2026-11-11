@@ -17,6 +17,7 @@ if (@$TopicBlock->image_status && @$TopicBlockContents->{"bg_".@Helper::currentL
 }
 $BlockTopics = [];
 $section_url = "";
+$is_afaq_components = @$TopicBlock->block_name === 'system-components';
 if (@$TopicBlockContents->module_id) {
     $BlockTopics = Helper::Topics(@$TopicBlockContents->module_id, @$TopicBlockContents->category_ids,
         @$TopicBlockContents->records_count, 0, @$TopicBlockContents->records_order);
@@ -25,8 +26,11 @@ if (@$TopicBlockContents->module_id) {
 ?>
 
 @if(count($BlockTopics) >0)
-    <section id="landing-block-{{ @$TopicBlock->id }}" class="landing-block modern-works {{ @$TopicBlock->css_classes  }}" style="{{ $block_style }}">
+    <section id="landing-block-{{ @$TopicBlock->id }}" class="landing-block modern-works {{ $is_afaq_components ? 'afaq-components' : '' }} {{ @$TopicBlock->css_classes  }}" style="{{ $block_style }}">
         <div class="container">
+            @if($is_afaq_components)
+                <div class="afaq-components-eyebrow"><span class="afaq-components-eyebrow-line"></span> AFAQ <span class="afaq-components-eyebrow-separator">/</span> {{ @Helper::currentLanguage()->code === 'ar' ? 'هندسة الطاقة' : 'ENERGY ENGINEERED' }}</div>
+            @endif
             @if(@$TopicBlock->title_status || @$TopicBlock->desc_status)
                 <div class="section-title">
                     @if(@$TopicBlock->title_status)
@@ -58,7 +62,11 @@ if (@$TopicBlockContents->module_id) {
                             }
                             ?>
                         <div class="swiper-slide modern-works-slide">
-                            @include(theme_view("topic.works-card"),["Topic"=>$Topic])
+                            @if($is_afaq_components)
+                                @include(theme_view("topic.afaq-component-card"),["Topic"=>$Topic, "component_number"=>$loop->iteration])
+                            @else
+                                @include(theme_view("topic.works-card"),["Topic"=>$Topic])
+                            @endif
                         </div>
                     @endforeach
                 </div>

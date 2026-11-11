@@ -76,7 +76,12 @@
                 $attach_file = '';
             }
         }
+        $afaqModule = in_array((string) (@$WebmasterSection->seo_url_slug_en ?? ''), ['afaq-services', 'afaq-components', 'afaq-systems', 'afaq-sectors', 'afaq-pages'], true)
+            ? str_replace('afaq-', '', $WebmasterSection->seo_url_slug_en) : null;
         ?>
+        @if($afaqModule)
+            @include(theme_view('topic.afaq-detail'))
+        @else
         @if ($category_image != '')
             @include(theme_view('topic.cover'))
         @endif
@@ -434,6 +439,7 @@
                 </div>
             </div>
         </section>
+        @endif
     </div>
     @include(theme_view('layouts.popup'), ['Popup' => @$Popup])
 @endsection

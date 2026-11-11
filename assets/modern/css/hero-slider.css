@@ -1250,7 +1250,7 @@
     max-width: 10ch;
     margin: 0;
     color: var(--split-ink) !important;
-    font-size: clamp(47px, 4.8vw, 77px);
+    font-size: 50px;
     font-weight: 800;
     line-height: 1.15;
     text-shadow: none;

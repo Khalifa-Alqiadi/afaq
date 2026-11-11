@@ -57,7 +57,15 @@
                     @if($TopicBlock->type == 3)
                         {{--Dynamic--}}
                         @if(@$TopicBlockContents->view_style !="")
-                            @include(theme_view('landing.').($blockViewStyle === 'yhinfographics' ? 'yhvisuals' : $blockViewStyle))
+                            @if($TopicBlock->block_name === 'afaq-services')
+                                @include(theme_view('landing.afaq-services'))
+                            @elseif($TopicBlock->block_name === 'afaq-sectors')
+                                @include(theme_view('landing.afaq-sectors'))
+                            @elseif($TopicBlock->block_name === 'system-types' || $TopicBlock->block_name === 'afaq-systems')
+                                @include(theme_view('landing.afaq-systems'))
+                            @else
+                                @include(theme_view('landing.').($blockViewStyle === 'yhinfographics' ? 'yhvisuals' : $blockViewStyle))
+                            @endif
                         @endif
                     @elseif($TopicBlock->type == 2)
                         {{--Banners--}}
@@ -69,7 +77,13 @@
                         @include(theme_view('landing.code'))
                     @elseif($TopicBlock->type == 0)
                         {{--Static Content--}}
-                        @include(theme_view('landing.static'))
+                        @if($TopicBlock->block_name === 'economic-value' || $TopicBlock->block_name === 'afaq-value')
+                            @include(theme_view('landing.afaq-economic'))
+                        @elseif($TopicBlock->block_name === 'afaq-about')
+                            @include(theme_view('landing.afaq-about'))
+                        @else
+                            @include(theme_view('landing.static'))
+                        @endif
                     @endif
                     </div>
                 @endif
@@ -112,6 +126,33 @@
                 });
             }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
             targets.forEach(function (element) { observer.observe(element); });
+        })();
+        (function () {
+            var blocks = document.querySelectorAll('.landing-page > .topic-block');
+            if (!blocks.length || !('IntersectionObserver' in window) ||
+                (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+
+            var observer = new IntersectionObserver(function (entries, instance) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('afaq-block-visible');
+                    instance.unobserve(entry.target);
+                });
+            }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+
+            blocks.forEach(function (block) {
+                if (!block.querySelector(':scope > section')) return;
+                var cards = block.querySelectorAll('.afaq-component-card, .afaq-services__card, .afaq-systems__item, .afaq-economic__focuses li, .afaq-sectors__tab');
+                cards.forEach(function (card, index) {
+                    card.classList.add('afaq-motion-card');
+                    card.style.setProperty('--afaq-motion-delay', Math.min(index, 6) * 90 + 'ms');
+                });
+                block.querySelectorAll('.afaq-about-image-shell, .afaq-economic__image-frame, .afaq-sectors__visual, .afaq-gallery__stage').forEach(function (image) {
+                    image.classList.add('afaq-motion-image');
+                });
+                block.classList.add('afaq-block-entrance');
+                observer.observe(block);
+            });
         })();
     </script>
 @endpush

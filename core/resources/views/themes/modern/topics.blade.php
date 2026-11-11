@@ -57,7 +57,12 @@
         if (@$page_type == "tag" && trim(@$TagDescription)) {
             $Category_description = @$TagDescription;
         }
+        $afaqModule = in_array((string) (@$WebmasterSection->seo_url_slug_en ?? ''), ['afaq-services', 'afaq-components', 'afaq-systems', 'afaq-sectors'], true)
+            ? str_replace('afaq-', '', $WebmasterSection->seo_url_slug_en) : null;
         ?>
+        @if($afaqModule && empty($search_word) && empty($DBTag))
+            @include(theme_view('topic.afaq-index'))
+        @else
         @if($category_image !="")
             @include(theme_view("topic.cover"))
         @endif
@@ -205,6 +210,7 @@
                 </div>
             </div>
         </section>
+        @endif
     </div>
     @include(theme_view('layouts.popup'),['Popup'=>@$Popup])
 @endsection

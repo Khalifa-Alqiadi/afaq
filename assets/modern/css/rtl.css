@@ -1,3 +1,11 @@
+@font-face {
+    font-family: Cairo;
+    src: url('../fonts/afaq/Cairo-Variable.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 200 1000;
+    font-display: swap;
+}
+
 .me-auto, .me-md-auto {
     margin-left: auto !important
 }
@@ -7,11 +15,17 @@
 }
 
 * {
-    font-family: Tajawal, sans-serif
+    font-family: Cairo, sans-serif
+}
+
+body, button, input, textarea, select,
+h1, h2, h3, h4, h5, h6,
+.btn, .navbar .nav-link, .modern-works-title {
+    font-family: Cairo, sans-serif;
 }
 
 #hero h2, .btn, .categories-list .nav-link span, .navbar .nav-link, h1, h2, h3, h4, h5, h6,.modern-footer-contact-label,.modern-works-title {
-    font-family: Alexandria, sans-serif
+    font-family: Cairo, sans-serif
 }
 
 .header-dropdown .btn {
@@ -297,7 +311,7 @@
     content: "\f104";
 }
 .modern-footer-contact-value {
-    font-family: Tajawal, sans-serif
+    font-family: Cairo, sans-serif
 }
 #footer .modern-footer-contact-icon{
     line-height: 20px;

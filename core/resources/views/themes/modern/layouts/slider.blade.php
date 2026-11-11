@@ -12,7 +12,7 @@
                     }
                     ?>
                 @endforeach
-        <section id="hero" class="modern-hero {{ $SliderBanner_type == 1 ? 'afaq-split-hero' : '' }}" aria-label="{{ @Helper::currentLanguage()->code === 'ar' ? 'آفاق للطاقة والأعمال المتكاملة' : 'AFAQ for Energy and Integrated Solutions' }}">
+        <section id="hero" class="modern-hero {{ $SliderBanner_type == 1 ? 'afaq-campaign-hero' : '' }}" aria-label="{{ strip_tags(Helper::GeneralSiteSettings('site_title_' . @Helper::currentLanguage()->code)) }}">
             <div class="hero-container hero-slider">
                 <?php
                 $title_var = "title_".@Helper::currentLanguage()->code;
@@ -106,12 +106,19 @@
                                              @if($i === 0) fetchpriority="high" @endif>
                                     </div>
                                     <div class="modern-hero-shade" aria-hidden="true"></div>
-                                    <div class="modern-hero-orbit" aria-hidden="true"></div>
-                                    <div class="modern-hero-grid" aria-hidden="true"></div>
+                                    <div class="afaq-hero-ribbon" aria-hidden="true"><span></span></div>
+                                    <div class="afaq-hero-service-tag" aria-hidden="true">
+                                        @if(@Helper::currentLanguage()->code === 'ar')
+                                            <span>الطاقة الشمسية</span><span>التخزين</span><span>الكهرباء</span><span>الهندسة</span>
+                                        @else
+                                            <span>SOLAR</span><span>STORAGE</span><span>ELECTRICAL</span><span>ENGINEERING</span>
+                                        @endif
+                                    </div>
 
                                     @if($BTitle != "" || $BDetails != "" || $BLink != "")
                                         <div class="modern-hero-container container">
                                             <div class="modern-hero-content">
+                                                <div class="afaq-hero-eyebrow"><span></span>{{ @Helper::currentLanguage()->code === 'ar' ? 'آفاق للطاقة والأعمال المتكاملة' : 'AFAQ FOR ENERGY & INTEGRATED BUSINESS' }}</div>
                                                 @if($BTitle != "")
                                                     <h2 class="modern-hero-title">{{ $BTitle }}</h2>
                                                 @endif
@@ -178,7 +185,7 @@
                                 </div>
                             @endif
                         </div>
-                        <span class="modern-hero-vertical-label" aria-hidden="true">AFAQ <span>—</span> ENERGY ENGINEERED</span>
+                        <span class="modern-hero-vertical-label" aria-hidden="true">AFAQ / ENERGY ENGINEERED</span>
                     </div>
                 @else
                     {{-- Video Banners --}}
