@@ -26,6 +26,7 @@
             }
         } catch (Exception $e) {
             $section = "";
+
         }
 
         $custom_css_code = $Topic->css_code;
