@@ -11,7 +11,7 @@
 <section id="landing-block-{{ $TopicBlock->id }}" class="landing-block afaq-about {{ $TopicBlock->css_classes }}" aria-label="{{ $aboutTitle }}">
     <div class="container afaq-about-layout">
         <div class="afaq-about-copy">
-            <div class="afaq-about-eyebrow"><span class="afaq-about-eyebrow-rule" aria-hidden="true"></span><span>{{ $aboutLanguage === 'ar' ? 'من نحن' : 'WHO WE ARE' }}</span><span class="afaq-about-eyebrow-index" aria-hidden="true">01 / AFAQ</span></div>
+            <div class="afaq-about-eyebrow"><span class="afaq-about-eyebrow-rule" aria-hidden="true"></span><span>{{ __('afaq.about_eyebrow') }}</span><span class="afaq-about-eyebrow-index" aria-hidden="true">01 / AFAQ</span></div>
             @if($TopicBlock->title_status && $aboutTitle)
                 <h2 class="afaq-about-title">{{ $aboutTitle }}</h2>
             @endif
@@ -25,11 +25,11 @@
                 <span>{{ __('frontend.moreDetails') }}</span>
                 <span class="afaq-about-link-icon" aria-hidden="true"><i class="bi bi-arrow-up-{{ $aboutLanguage === 'ar' ? 'left' : 'right' }}"></i></span>
             </a>
-            <div class="afaq-about-disciplines" aria-label="{{ $aboutLanguage === 'ar' ? 'مجالات آفاق' : 'AFAQ disciplines' }}">
-                <span>{{ $aboutLanguage === 'ar' ? 'الطاقة الشمسية' : 'SOLAR' }}</span>
-                <span>{{ $aboutLanguage === 'ar' ? 'التخزين' : 'STORAGE' }}</span>
-                <span>{{ $aboutLanguage === 'ar' ? 'الكهرباء' : 'ELECTRICAL' }}</span>
-                <span>{{ $aboutLanguage === 'ar' ? 'الهندسة' : 'ENGINEERING' }}</span>
+            <div class="afaq-about-disciplines" aria-label="{{ __('afaq.about_disciplines') }}">
+                <span>{{ __('afaq.solar') }}</span>
+                <span>{{ __('afaq.storage') }}</span>
+                <span>{{ __('afaq.electrical') }}</span>
+                <span>{{ __('afaq.engineering') }}</span>
             </div>
         </div>
 
@@ -44,7 +44,7 @@
             </div>
             <div class="afaq-about-image-caption" aria-hidden="true">
                 <span class="afaq-about-image-caption-dot"></span>
-                <span>{{ $aboutLanguage === 'ar' ? 'نبتكر اليوم، ليستدام الغد' : 'INNOVATING TODAY, SUSTAINING TOMORROW' }}</span>
+                <span>{{ __('afaq.about_motto') }}</span>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@
             @else
                 <span class="afaq-wordmark" aria-label="AFAQ">
                     <strong>AFAQ</strong>
-                    <small>{{ @Helper::currentLanguage()->code === 'ar' ? 'آفاق للطاقة' : 'ENERGY & SOLUTIONS' }}</small>
+                    <small>{{ __('afaq.brand_short') }}</small>
                 </span>
             @endif
         </a>
@@ -19,7 +19,7 @@
         @include(theme_view('layouts.menu'))
 
         <a class="afaq-header-contact" href="{{ url((Helper::currentLanguage()->code !== config('smartend.default_language') ? Helper::currentLanguage()->code.'/' : '').'afaq-contact') }}">
-            <span>{{ @Helper::currentLanguage()->code === 'ar' ? 'لنتحدث عن مشروعك' : 'Discuss your project' }}</span>
+            <span>{{ __('afaq.project_cta') }}</span>
             <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
         </a>
     </div>

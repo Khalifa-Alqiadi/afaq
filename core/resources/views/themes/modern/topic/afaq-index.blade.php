@@ -13,10 +13,10 @@
         'sectors' => ['fa-solid fa-building', 'fa-solid fa-industry', 'fa-solid fa-landmark', 'fa-solid fa-house', 'fa-solid fa-seedling'],
     ];
     $afaqLabels = [
-        'services' => $afaqIsArabic ? 'من الفكرة إلى التشغيل' : 'FROM IDEA TO OPERATION',
-        'components' => $afaqIsArabic ? 'هندسة كل تفصيل' : 'ENGINEERED IN EVERY DETAIL',
-        'systems' => $afaqIsArabic ? 'نظام يناسب موقعك' : 'THE RIGHT SYSTEM FOR YOUR SITE',
-        'sectors' => $afaqIsArabic ? 'حلول لكل قطاع' : 'SOLUTIONS FOR EVERY SECTOR',
+        'services' => __('afaq.index_services_eyebrow'),
+        'components' => __('afaq.index_components_eyebrow'),
+        'systems' => __('afaq.index_systems_eyebrow'),
+        'sectors' => __('afaq.index_sectors_eyebrow'),
     ];
     $afaqIntro = trim(strip_tags((string) $Category_description));
 @endphp
@@ -28,17 +28,17 @@
                 <span class="afaq-inner-hero__eyebrow"><span></span>AFAQ / {{ $afaqLabels[$afaqModule] }}</span>
                 <h1>{{ $page_title }}</h1>
                 @if($afaqIntro !== '')<p>{{ $afaqIntro }}</p>@endif
-                <span class="afaq-inner-hero__count">{{ str_pad($Topics->total(), 2, '0', STR_PAD_LEFT) }} <span>{{ $afaqIsArabic ? 'مجالات للاستكشاف' : 'AREAS TO EXPLORE' }}</span></span>
+                <span class="afaq-inner-hero__count">{{ str_pad($Topics->total(), 2, '0', STR_PAD_LEFT) }} <span>{{ __('afaq.areas_to_explore') }}</span></span>
             </div>
             <div class="afaq-inner-hero__media">
                 <img src="{{ $category_image ?: route('fileView', ['path' => 'banners/'.$afaqHeroImages[$afaqModule]]) }}" alt="{{ $page_title }}" loading="eager">
-                <span class="afaq-inner-hero__media-label">AFAQ <span>—</span> ENERGY ENGINEERED</span>
+                <span class="afaq-inner-hero__media-label">AFAQ <span>—</span> {{ __('afaq.energy_engineered') }}</span>
             </div>
         </div>
     </header>
     <section class="afaq-index__body" aria-label="{{ $page_title }}">
         <div class="container">
-            <div class="afaq-index__intro"><span>{{ $afaqIsArabic ? 'استكشف' : 'EXPLORE' }} / {{ $page_title }}</span><span class="afaq-index__intro-line"></span><span>{{ str_pad($Topics->total(), 2, '0', STR_PAD_LEFT) }}</span></div>
+            <div class="afaq-index__intro"><span>{{ __('afaq.explore') }} / {{ $page_title }}</span><span class="afaq-index__intro-line"></span><span>{{ str_pad($Topics->total(), 2, '0', STR_PAD_LEFT) }}</span></div>
             @if($Topics->total() === 0)
                 <div class="afaq-index__empty">{{ __('frontend.noData') }}</div>
             @else
@@ -63,7 +63,7 @@
                                     <span class="afaq-index-card__symbol" aria-hidden="true"><i class="{{ $iconClass }}"></i></span>
                                 @endif
                                 <span class="afaq-index-card__content"><strong>{{ $itemTitle }}</strong>@if($itemDescription !== '')<span>{{ $itemDescription }}</span>@endif</span>
-                                <span class="afaq-index-card__foot"><span>{{ $afaqIsArabic ? 'اكتشف التفاصيل' : 'EXPLORE DETAILS' }}</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+                                <span class="afaq-index-card__foot"><span>{{ __('afaq.explore_details') }}</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
                             </a>
                         </article>
                     @endforeach

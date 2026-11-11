@@ -29,7 +29,7 @@ if (@$TopicBlockContents->module_id) {
     <section id="landing-block-{{ @$TopicBlock->id }}" class="landing-block modern-works {{ $is_afaq_components ? 'afaq-components' : '' }} {{ @$TopicBlock->css_classes  }}" style="{{ $block_style }}">
         <div class="container">
             @if($is_afaq_components)
-                <div class="afaq-components-eyebrow"><span class="afaq-components-eyebrow-line"></span> AFAQ <span class="afaq-components-eyebrow-separator">/</span> {{ @Helper::currentLanguage()->code === 'ar' ? 'هندسة الطاقة' : 'ENERGY ENGINEERED' }}</div>
+                <div class="afaq-components-eyebrow"><span class="afaq-components-eyebrow-line"></span> AFAQ <span class="afaq-components-eyebrow-separator">/</span> {{ __('afaq.components_eyebrow') }}</div>
             @endif
             @if(@$TopicBlock->title_status || @$TopicBlock->desc_status)
                 <div class="section-title">

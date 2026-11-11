@@ -79,10 +79,8 @@
                                 }
                                 $isDemoBanner = preg_match('/^(بنر رقم|banner\s*#)/iu', $BTitle) === 1;
                                 if ($isDemoBanner) {
-                                    $BTitle = @Helper::currentLanguage()->code === 'ar' ? 'طاقة بإتقان هندسي' : 'Energy, engineered.';
-                                    $BDetails = @Helper::currentLanguage()->code === 'ar'
-                                        ? 'حلول الطاقة الشمسية والتخزين المصممة لمشاريعك في سلطنة عُمان.'
-                                        : 'Solar and storage solutions engineered for your projects across Oman.';
+                                    $BTitle = __('afaq.demo_slider_title');
+                                    $BDetails = __('afaq.demo_slider_details');
                                     $BLink = url((@Helper::currentLanguage()->code !== config('smartend.default_language') ? @Helper::currentLanguage()->code.'/' : '').'afaq-contact');
                                 }
                                 $BFile = basename((string) $BFile);
@@ -118,7 +116,7 @@
                                     @if($BTitle != "" || $BDetails != "" || $BLink != "")
                                         <div class="modern-hero-container container">
                                             <div class="modern-hero-content">
-                                                <div class="afaq-hero-eyebrow"><span></span>{{ @Helper::currentLanguage()->code === 'ar' ? 'آفاق للطاقة والأعمال المتكاملة' : 'AFAQ FOR ENERGY & INTEGRATED BUSINESS' }}</div>
+                                                <div class="afaq-hero-eyebrow"><span></span>{{ __('afaq.brand_description') }}</div>
                                                 @if($BTitle != "")
                                                     <h2 class="modern-hero-title">{{ $BTitle }}</h2>
                                                 @endif
@@ -185,7 +183,7 @@
                                 </div>
                             @endif
                         </div>
-                        <span class="modern-hero-vertical-label" aria-hidden="true">AFAQ / ENERGY ENGINEERED</span>
+                        <span class="modern-hero-vertical-label" aria-hidden="true">AFAQ / {{ __('afaq.energy_engineered') }}</span>
                     </div>
                 @else
                     {{-- Video Banners --}}

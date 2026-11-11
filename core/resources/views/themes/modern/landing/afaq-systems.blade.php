@@ -14,14 +14,14 @@
     <div class="container">
         <div class="afaq-systems__head">
             <div class="afaq-systems__heading">
-                <div class="afaq-systems__eyebrow"><span class="afaq-systems__eyebrow-line"></span> AFAQ / {{ $isArabic ? 'حلول الطاقة' : 'ENERGY SOLUTIONS' }} <span class="afaq-systems__eyebrow-number">04</span></div>
+                <div class="afaq-systems__eyebrow"><span class="afaq-systems__eyebrow-line"></span> AFAQ / {{ __('afaq.systems_eyebrow') }} <span class="afaq-systems__eyebrow-number">04</span></div>
                 @if($TopicBlock->title_status && $heading !== '')<h2 id="afaq-systems-heading-{{ (int) $TopicBlock->id }}">{{ $heading }}</h2>@endif
             </div>
             @if($TopicBlock->desc_status && $intro !== '')<p class="afaq-systems__intro">{{ $intro }}</p>@endif
         </div>
         <div class="afaq-systems__layout">
             <div class="afaq-systems__diagram" aria-hidden="true">
-                <div class="afaq-systems__diagram-top"><span>AFAQ / ENGINEERED ENERGY</span><span>01 — 03</span></div>
+                <div class="afaq-systems__diagram-top"><span>AFAQ / {{ __('afaq.energy_engineered') }}</span><span>01 — 03</span></div>
                 <div class="afaq-systems__diagram-art">
                     <span class="afaq-systems__sun"></span>
                     <span class="afaq-systems__sun-rays"></span>
@@ -33,7 +33,7 @@
                     <span class="afaq-systems__node afaq-systems__node--battery"><i class="fa-solid fa-battery-full"></i></span>
                     <span class="afaq-systems__node afaq-systems__node--home"><i class="fa-solid fa-house"></i></span>
                 </div>
-                <div class="afaq-systems__diagram-bottom"><span>{{ $isArabic ? 'من الشمس إلى كل احتياج' : 'FROM SUNLIGHT TO EVERY NEED' }}</span><span class="afaq-systems__diagram-spark">✳</span></div>
+                <div class="afaq-systems__diagram-bottom"><span>{{ __('afaq.sun_to_need') }}</span><span class="afaq-systems__diagram-spark">✳</span></div>
             </div>
             <div class="afaq-systems__list">
                 @foreach($systems as $system)

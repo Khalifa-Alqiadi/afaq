@@ -7,7 +7,7 @@
         <div class="afaq-component-card__topline">
             <span class="afaq-component-card__index">{{ str_pad($component_number, 2, '0', STR_PAD_LEFT) }}</span>
             <span class="afaq-component-card__line" aria-hidden="true"></span>
-            <span class="afaq-component-card__brand">AFAQ / SYSTEMS</span>
+            <span class="afaq-component-card__brand">AFAQ / {{ __('afaq.systems') }}</span>
         </div>
         <div class="afaq-component-card__icon" aria-hidden="true">
             @if($componentIcon !== '' && preg_match('/^[a-zA-Z0-9_\s-]+$/', $componentIcon))
@@ -23,7 +23,7 @@
             @endif
         </div>
         <div class="afaq-component-card__footer">
-            <span>{{ @Helper::currentLanguage()->code === 'ar' ? 'استكشف المكوّن' : 'EXPLORE COMPONENT' }}</span>
+            <span>{{ __('afaq.explore_component') }}</span>
             <span class="afaq-component-card__arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right-long"></i></span>
         </div>
     </a>

@@ -20,14 +20,14 @@
                 <img src="{{ route('fileView', ['path' => $photoPath]) }}?w=1400&h=1150&r=fit" alt="{{ $title }}" loading="lazy" width="1400" height="1150">
                 <span class="afaq-economic__image-index" aria-hidden="true">AFAQ / 06</span>
             </div>
-            <div class="afaq-economic__image-caption"><span class="afaq-economic__caption-rule"></span><span>{{ $isArabic ? 'طاقة مدروسة. قرار واثق.' : 'ENGINEERED ENERGY. INFORMED DECISIONS.' }}</span></div>
+            <div class="afaq-economic__image-caption"><span class="afaq-economic__caption-rule"></span><span>{{ __('afaq.economic_caption') }}</span></div>
         </div>
         <div class="afaq-economic__copy">
-            <div class="afaq-economic__eyebrow"><span class="afaq-economic__eyebrow-line"></span>AFAQ / {{ $isArabic ? 'جدوى الطاقة' : 'ENERGY ECONOMICS' }}<span class="afaq-economic__eyebrow-number">06</span></div>
+            <div class="afaq-economic__eyebrow"><span class="afaq-economic__eyebrow-line"></span>AFAQ / {{ __('afaq.economic_eyebrow') }}<span class="afaq-economic__eyebrow-number">06</span></div>
             @if($TopicBlock->title_status && $title !== '')<h2>{{ $title }}</h2>@endif
             @if($TopicBlock->desc_status && $description !== '')<p class="afaq-economic__summary">{{ $description }}</p>@endif
             @if($details !== '')<div class="afaq-economic__details">{!! str_replace('"#', '"'.Request::url().'#', $details) !!}</div>@endif
-            <div class="afaq-economic__focus-heading"><span>{{ $isArabic ? 'ما الذي ندرسه؟' : 'WHAT WE ASSESS' }}</span><span class="afaq-economic__focus-heading-line"></span></div>
+            <div class="afaq-economic__focus-heading"><span>{{ __('afaq.economic_focus') }}</span><span class="afaq-economic__focus-heading-line"></span></div>
             <ul class="afaq-economic__focuses">
                 @foreach($focuses as $focus)
                     <li><span class="afaq-economic__focus-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span><span>{{ $focus }}</span><i class="fa-solid fa-arrow-up-right" aria-hidden="true"></i></li>

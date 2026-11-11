@@ -15,7 +15,7 @@
     <div class="container">
         <header class="afaq-sectors__header">
             <div class="afaq-sectors__heading">
-                <span class="afaq-sectors__eyebrow"><span class="afaq-sectors__eyebrow-mark"></span>AFAQ <span>/</span> {{ $isArabic ? 'مجالات نعمل فيها' : 'WHERE WE WORK' }}</span>
+                <span class="afaq-sectors__eyebrow"><span class="afaq-sectors__eyebrow-mark"></span>AFAQ <span>/</span> {{ __('afaq.sectors_eyebrow') }}</span>
                 @if($TopicBlock->title_status && $heading !== '')<h2>{{ $heading }}</h2>@endif
             </div>
             @if($TopicBlock->desc_status && $intro !== '')<p>{{ $intro }}</p>@endif
@@ -23,12 +23,12 @@
 
         <div class="afaq-sectors__showcase">
             <div class="afaq-sectors__visual">
-                <img src="{{ route('fileView', ['path' => 'banners/afaq-profile-page-3.png']) }}" alt="{{ $isArabic ? 'مشروع طاقة شمسية في بيئة جبلية' : 'Solar energy installation in a mountain landscape' }}" loading="lazy">
-                <span class="afaq-sectors__visual-label"><span class="afaq-sectors__visual-dot"></span>AFAQ / ENERGY ENGINEERED</span>
+                <img src="{{ route('fileView', ['path' => 'banners/afaq-profile-page-3.png']) }}" alt="{{ __('afaq.sector_image_alt') }}" loading="lazy">
+                <span class="afaq-sectors__visual-label"><span class="afaq-sectors__visual-dot"></span>AFAQ / {{ __('afaq.energy_engineered') }}</span>
                 <span class="afaq-sectors__visual-index" aria-hidden="true">07<span> / </span> AFAQ</span>
             </div>
             <div class="afaq-sectors__content">
-                <div class="afaq-sectors__content-top"><span>{{ $isArabic ? 'حلول بحسب قطاعك' : 'SOLUTIONS FOR YOUR SECTOR' }}</span><span class="afaq-sectors__count">01 / {{ str_pad(count($sectors), 2, '0', STR_PAD_LEFT) }}</span></div>
+                <div class="afaq-sectors__content-top"><span>{{ __('afaq.sector_solutions') }}</span><span class="afaq-sectors__count">01 / {{ str_pad(count($sectors), 2, '0', STR_PAD_LEFT) }}</span></div>
                 <div class="afaq-sectors__slider swiper">
                     <div class="swiper-wrapper">
                         @foreach($sectors as $sector)
@@ -45,7 +45,7 @@
                                     <span class="afaq-sectors__slide-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }} <span>/ {{ str_pad(count($sectors), 2, '0', STR_PAD_LEFT) }}</span></span>
                                     <h3>{{ $sectorTitle }}</h3>
                                     @if($sectorDescription !== '')<p>{{ $sectorDescription }}</p>@endif
-                                    <a href="{{ Helper::topicURL($sector->id, '', $sector) }}" class="afaq-sectors__explore">{{ $isArabic ? 'استكشف حلول هذا القطاع' : 'Explore sector solutions' }} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                                    <a href="{{ Helper::topicURL($sector->id, '', $sector) }}" class="afaq-sectors__explore">{{ __('afaq.explore_sector') }} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
                                 </article>
                             </div>
                         @endforeach
@@ -54,14 +54,14 @@
                 <div class="afaq-sectors__controls">
                     <div class="afaq-sectors__progress" aria-hidden="true"></div>
                     <div class="afaq-sectors__arrows">
-                        <button type="button" class="afaq-sectors__prev" aria-label="{{ $isArabic ? 'القطاع السابق' : 'Previous sector' }}"><i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></button>
-                        <button type="button" class="afaq-sectors__next" aria-label="{{ $isArabic ? 'القطاع التالي' : 'Next sector' }}"><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
+                        <button type="button" class="afaq-sectors__prev" aria-label="{{ __('afaq.previous_sector') }}"><i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></button>
+                        <button type="button" class="afaq-sectors__next" aria-label="{{ __('afaq.next_sector') }}"><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="afaq-sectors__tabs" role="group" aria-label="{{ $isArabic ? 'اختر القطاع' : 'Choose a sector' }}">
+        <div class="afaq-sectors__tabs" role="group" aria-label="{{ __('afaq.choose_sector') }}">
             @foreach($sectors as $sector)
                 @php
                     $sectorTitle = $sector->{'title_'.$language} ?: $sector->{'title_'.$fallbackLanguage};

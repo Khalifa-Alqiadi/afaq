@@ -5632,7 +5632,7 @@ pre {
 .afaq-contact-details__heading { padding-bottom: 27px; border-bottom: 1px solid #c8d9d0; }
 .afaq-contact-details__heading > span, .afaq-contact-form-heading > span { color: #e47729; font-family: Geist, sans-serif; font-size: 11px; font-weight: 800; letter-spacing: .1em; }
 .afaq-contact-details__heading h2, .afaq-contact-form-heading h2 { margin: 12px 0 0; color: #003b45; font-size: clamp(26px, 2.4vw, 36px); font-weight: 800; line-height: 1.2; }
-.contact-page .contact .info { padding: 0; background: transparent; }
+.contact-page .contact .info { padding: 0; background: transparent !important; background-color: transparent !important; }
 .contact-page .contact .info > div { position: relative; min-height: 76px; margin: 0; padding: 19px 0 19px 56px; border-bottom: 1px solid #e2e9e2; }
 [dir="rtl"] .contact-page .contact .info > div { padding: 19px 56px 19px 0; }
 .contact-page .contact .info i { position: absolute; inset-inline-start: 0; top: 20px; float: none; display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid #c9ddd0; border-radius: 0; background: #f1f7e9; color: #01434f; font-size: 17px; }
@@ -5656,3 +5656,39 @@ pre {
 @media (max-width: 991px) { .afaq-contact-hero__mark { display: none; }.afaq-contact-details { margin-bottom: 35px; }.contact-page .contact .php-email-form { box-shadow: 6px 6px 0 #eaf0e8; } }
 @media (max-width: 575px) { .afaq-contact-hero { padding-block: 54px 65px; }.afaq-contact-hero h1 { font-size: 52px; }.contact-page .contact .php-email-form { padding: 22px; }.contact-page .php-email-form #contactFormSubmit { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .contact-page .php-email-form #contactFormSubmit { transition: none; } }
+
+/* Compact title band on AFAQ detail pages. */
+.afaq-detail__hero { padding: 26px 0 58px; }
+.afaq-detail__hero .site-breadcrumbs { margin-bottom: 43px; }
+.afaq-detail__hero-grid { display: block; min-height: 0; }
+.afaq-detail__hero-copy { display: block; max-width: 920px; padding: 0; }
+.afaq-detail__hero h1 { max-width: none; margin: 17px 0 0; font-size: clamp(38px, 4.6vw, 66px); line-height: 1.18; }
+.afaq-detail__hero-copy > p { max-width: 760px; margin-top: 17px; }
+.afaq-detail__hero-rule { display: block; width: 75px; height: 2px; margin-top: 30px; }
+@media (max-width: 767px) { .afaq-detail__hero { padding: 23px 0 45px; }.afaq-detail__hero .site-breadcrumbs { margin-bottom: 32px; }.afaq-detail__hero h1 { font-size: clamp(35px, 9vw, 52px); } }
+
+/* Sharing and related reading on AFAQ detail pages. */
+.afaq-detail__article > .bottom-article { margin: 48px 0 0 !important; padding: 22px 25px; border: 1px solid #d9e5dc; border-radius: 0; background: #f5f8f1 !important; }
+.afaq-detail__article > .bottom-article > .d-flex { align-items: center; gap: 20px; flex-wrap: wrap; }
+.afaq-detail__article .share-title { align-items: center; gap: 10px; margin: 0; color: #063e46 !important; font-size: 14px; font-weight: 800; }
+.afaq-detail__article .share-title i { color: #e47729; font-size: 16px; }
+.afaq-detail__article .social-network.share { display: flex; align-items: center; gap: 8px; margin: 0; padding: 0; }
+.afaq-detail__article .social-network.share li { margin: 0; padding: 0; }
+.afaq-detail__article .social-network.share a { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid #bad2c6; border-radius: 50%; background: #fff !important; color: #01434f !important; font-size: 17px; text-decoration: none; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+.afaq-detail__article .social-network.share a:hover { border-color: #c7fb5f; background: #c7fb5f !important; transform: translateY(-3px); }
+.afaq-detail__article .social-network.share a:focus-visible { outline: 2px solid #e47729; outline-offset: 3px; }
+.afaq-detail .topic-read-also { margin: 70px 0 0 !important; }
+.afaq-detail .topic-read-also-heading { gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #01434f; }
+.afaq-detail .topic-read-also-heading__icon { display: none; }
+.afaq-detail .topic-read-also-heading h2 { color: #01343e !important; font-size: clamp(24px, 2.6vw, 35px); font-weight: 800; }
+.afaq-detail .topic-read-also-heading__line { width: 28px; height: 3px; flex: 0 0 28px; background: #e47729; }
+.afaq-detail .topic-read-also-card, [dir="ltr"] .afaq-detail .topic-read-also-card { min-height: 136px; border: 1px solid #dce7de; border-radius: 2px; background: #fbfcf9; box-shadow: none; }
+.afaq-detail .topic-read-also-card::before, .afaq-detail .topic-read-also-card::after { display: none; }
+.afaq-detail .topic-read-also-card:hover { border-color: #7da995; background: #f3f8ed; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,55,57,.08); }
+.afaq-detail .topic-read-also-card__media { width: 128px; min-width: 128px; background: #e9f2e9; }
+.afaq-detail .topic-read-also-card__placeholder { min-height: 134px; background: #e9f2e9; color: #336a66; font-size: 24px; }
+.afaq-detail .topic-read-also-card__content { padding: 19px 22px; }
+.afaq-detail .topic-read-also-card__content strong { color: #073e46 !important; font-size: clamp(16px, 1.4vw, 19px); font-weight: 800; line-height: 1.5; }
+.afaq-detail .topic-read-also-card__action { margin-top: 13px; padding: 0; border: 0; color: #376a61 !important; font-size: 12px; }
+@media (max-width: 575px) { .afaq-detail__article > .bottom-article { padding: 18px; }.afaq-detail .topic-read-also-card__media { width: 95px; min-width: 95px; }.afaq-detail .topic-read-also-card__content { padding: 15px; } }
+@media (prefers-reduced-motion: reduce) { .afaq-detail .social-network.share a, .afaq-detail .topic-read-also-card { transition: none; } }

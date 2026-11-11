@@ -32,13 +32,12 @@
         $custom_js_code = $Topic->js_code;
         $custom_body_code = $Topic->body_code;
         ?>
-        @include(theme_view('layouts.breadcrumbs'), ['breadcrumbItems' => [['label' => $title]]])
         <header class="afaq-contact-hero">
             <div class="container afaq-contact-hero__inner">
                 <div>
-                    <span class="afaq-contact-eyebrow"><span></span> AFAQ / {{ @Helper::currentLanguage()->code == 'ar' ? 'تواصل معنا' : 'CONTACT' }}</span>
+                    <span class="afaq-contact-eyebrow"><span></span> AFAQ / {{ __('afaq.contact') }}</span>
                     <h1>{{ $title }}</h1>
-                    <p>{{ @Helper::currentLanguage()->code == 'ar' ? 'لديك مشروع أو استفسار؟ أخبرنا بما تحتاجه، وسنبدأ الحديث من هناك.' : 'Have a project or a question? Tell us what you need and let’s start the conversation.' }}</p>
+                    <p>{{ __('afaq.contact_intro') }}</p>
                 </div>
                 <span class="afaq-contact-hero__mark" aria-hidden="true">AFAQ<span>.</span></span>
             </div>
@@ -211,7 +210,7 @@
 
                     <div class="col-lg-4 afaq-contact-details">
                         <div class="afaq-contact-details__heading">
-                            <span>01 / {{ @Helper::currentLanguage()->code == 'ar' ? 'قنوات التواصل' : 'CONTACT CHANNELS' }}</span>
+                            <span>01 / {{ __('afaq.contact_channels') }}</span>
                             <h2>{{ __('frontend.contactDetails') }}</h2>
                         </div>
                         <div class="info">
@@ -266,9 +265,9 @@
 
                     <div class="col-lg-8" id="contact-form-container">
                         <div class="afaq-contact-form-heading">
-                            <span>02 / {{ @Helper::currentLanguage()->code == 'ar' ? 'أرسل رسالة' : 'SEND A MESSAGE' }}</span>
+                            <span>02 / {{ __('afaq.send_message') }}</span>
                             <h2>{{ __('frontend.getInTouch') }}</h2>
-                            <p>{{ @Helper::currentLanguage()->code == 'ar' ? 'عبّئ البيانات التالية وسنتواصل معك عبر وسيلة الاتصال التي تفضلها.' : 'Share a few details and we will get back to you using your contact information.' }}</p>
+                            <p>{{ __('afaq.contact_form_intro') }}</p>
                         </div>
                         <form method="POST" action="{{ route("contactPageSubmit") }}" class="php-email-form" id="contactForm">
                             @csrf

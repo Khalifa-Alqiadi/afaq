@@ -40,17 +40,17 @@
     <div class="container">
         <div class="afaq-gallery__heading">
             <div>
-                <div class="afaq-gallery__eyebrow"><span class="afaq-gallery__eyebrow-line"></span>AFAQ / {{ $isArabic ? 'مشاريعنا' : 'SELECTED PROJECTS' }}</div>
+                <div class="afaq-gallery__eyebrow"><span class="afaq-gallery__eyebrow-line"></span>AFAQ / {{ __('afaq.gallery_eyebrow') }}</div>
                 @if($TopicBlock->title_status && $heading !== '')<h2>{{ $heading }}</h2>@endif
             </div>
             @if($TopicBlock->desc_status && $intro !== '')<p>{{ $intro }}</p>@endif
         </div>
         <div class="afaq-gallery__stage">
-            <div class="afaq-gallery__slider swiper" dir="{{ $isArabic ? 'rtl' : 'ltr' }}" aria-label="{{ $isArabic ? 'معرض المشاريع' : 'Project gallery' }}">
+            <div class="afaq-gallery__slider swiper" dir="{{ $isArabic ? 'rtl' : 'ltr' }}" aria-label="{{ __('afaq.project_gallery') }}">
                 <div class="swiper-wrapper">
                     @foreach($items as $item)
                         <div class="swiper-slide afaq-gallery__slide">
-                            <a class="afaq-gallery__media {{ $item['image'] ? 'galelry-lightbox' : 'afaq-gallery__media--empty' }}" href="{{ $item['image'] ?: $item['link'] }}" @if($item['image']) data-gallery="afaq-gallery-{{ (int) $TopicBlock->id }}" @endif title="{{ $item['title'] }}" aria-label="{{ $item['image'] ? ($isArabic ? 'تكبير صورة ' : 'View image: ').$item['title'] : $item['title'] }}">
+                            <a class="afaq-gallery__media {{ $item['image'] ? 'galelry-lightbox' : 'afaq-gallery__media--empty' }}" href="{{ $item['image'] ?: $item['link'] }}" @if($item['image']) data-gallery="afaq-gallery-{{ (int) $TopicBlock->id }}" @endif title="{{ $item['title'] }}" aria-label="{{ $item['image'] ? __('afaq.view_image', ['title' => $item['title']]) : $item['title'] }}">
                                 @if($item['image'])
                                     <img src="{{ $item['image'] }}?w=1600&h=950&r=fit" alt="{{ $item['title'] }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}" width="1600" height="950">
                                 @else
@@ -58,29 +58,29 @@
                                 @endif
                             </a>
                             <div class="afaq-gallery__veil" aria-hidden="true"></div>
-                            <div class="afaq-gallery__slide-top"><span>AFAQ <span class="afaq-gallery__slash">/</span> {{ $isArabic ? 'أعمال مختارة' : 'SELECTED WORK' }}</span><span>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }} / {{ str_pad(count($items), 2, '0', STR_PAD_LEFT) }}</span></div>
+                            <div class="afaq-gallery__slide-top"><span>AFAQ <span class="afaq-gallery__slash">/</span> {{ __('afaq.selected_work') }}</span><span>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }} / {{ str_pad(count($items), 2, '0', STR_PAD_LEFT) }}</span></div>
                             <div class="afaq-gallery__slide-copy">
-                                <span class="afaq-gallery__slide-kicker">{{ $isArabic ? 'مشروع' : 'PROJECT' }} {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                                <span class="afaq-gallery__slide-kicker">{{ __('afaq.project') }} {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                                 <h3>{{ $item['title'] }}</h3>
-                                <a class="afaq-gallery__project-link" href="{{ $item['link'] }}">{{ $isArabic ? 'تفاصيل المشروع' : 'EXPLORE PROJECT' }} <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
+                                <a class="afaq-gallery__project-link" href="{{ $item['link'] }}">{{ __('afaq.project_details') }} <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
-            <div class="afaq-gallery__side-label" aria-hidden="true">AFAQ <span>—</span> ENERGY ENGINEERED</div>
+            <div class="afaq-gallery__side-label" aria-hidden="true">AFAQ <span>—</span> {{ __('afaq.energy_engineered') }}</div>
         </div>
         <div class="afaq-gallery__toolbar">
             <div class="afaq-gallery__navigation">
-                <button type="button" class="afaq-gallery__prev" aria-label="{{ $isArabic ? 'الصورة السابقة' : 'Previous project' }}"><i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></button>
-                <button type="button" class="afaq-gallery__next" aria-label="{{ $isArabic ? 'الصورة التالية' : 'Next project' }}"><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
+                <button type="button" class="afaq-gallery__prev" aria-label="{{ __('afaq.previous_project') }}"><i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></button>
+                <button type="button" class="afaq-gallery__next" aria-label="{{ __('afaq.next_project') }}"><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
             </div>
             <div class="afaq-gallery__progress" aria-hidden="true"></div>
             <span class="afaq-gallery__counter" aria-hidden="true"><strong class="afaq-gallery__current">01</strong><span>/</span>{{ str_pad(count($items), 2, '0', STR_PAD_LEFT) }}</span>
             @if($TopicBlock->more_btn_status && $sectionUrl !== '')<a href="{{ url($sectionUrl) }}" class="afaq-gallery__more">{{ __('frontend.viewMore') }} <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>@endif
         </div>
         @if(count($items) > 1)
-            <div class="afaq-gallery__filmstrip" aria-label="{{ $isArabic ? 'اختر مشروعًا' : 'Choose a project' }}">
+            <div class="afaq-gallery__filmstrip" aria-label="{{ __('afaq.choose_project') }}">
                 @foreach($items as $item)
                     <button type="button" class="afaq-gallery__film-item {{ $loop->first ? 'is-active' : '' }}" data-gallery-index="{{ $loop->index }}" aria-label="{{ $item['title'] }}" aria-pressed="{{ $loop->first ? 'true' : 'false' }}">
                         <span class="afaq-gallery__film-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>

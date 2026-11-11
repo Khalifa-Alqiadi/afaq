@@ -15,12 +15,12 @@
     <div class="container">
         <div class="afaq-services__head">
             <div>
-                <div class="afaq-services__eyebrow"><span class="afaq-services__eyebrow-line"></span>AFAQ / {{ $isArabic ? 'من الفكرة إلى التشغيل' : 'FROM CONCEPT TO OPERATION' }}</div>
+                <div class="afaq-services__eyebrow"><span class="afaq-services__eyebrow-line"></span>AFAQ / {{ __('afaq.services_eyebrow') }}</div>
                 @if($TopicBlock->title_status && $heading !== '')<h2 id="afaq-services-heading-{{ (int) $TopicBlock->id }}">{{ $heading }}</h2>@endif
             </div>
             @if($TopicBlock->desc_status && $intro !== '')<p class="afaq-services__intro">{{ $intro }}</p>@endif
         </div>
-        <div class="afaq-services__slider swiper" dir="{{ $isArabic ? 'rtl' : 'ltr' }}" aria-label="{{ $isArabic ? 'مراحل العمل' : 'Work stages' }}">
+        <div class="afaq-services__slider swiper" dir="{{ $isArabic ? 'rtl' : 'ltr' }}" aria-label="{{ __('afaq.work_stages') }}">
             <div class="swiper-wrapper afaq-services__journey">
             @foreach($services as $service)
                 @php
@@ -39,20 +39,20 @@
                         <span class="afaq-services__card-top"><span class="afaq-services__number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span><span class="afaq-services__icon" aria-hidden="true"><i class="{{ $iconClass }}"></i></span></span>
                         <span class="afaq-services__card-main"><strong>{{ $serviceTitle }}</strong><span>{{ $serviceDescription }}</span></span>
                         @if($serviceResult !== '')
-                            <span class="afaq-services__result"><span class="afaq-services__result-label"><i class="fa-solid fa-check" aria-hidden="true"></i>{{ $isArabic ? 'المخرج' : 'DELIVERABLE' }}</span><span>{{ $serviceResult }}</span></span>
+                            <span class="afaq-services__result"><span class="afaq-services__result-label"><i class="fa-solid fa-check" aria-hidden="true"></i>{{ __('afaq.deliverable') }}</span><span>{{ $serviceResult }}</span></span>
                         @endif
-                        <span class="afaq-services__card-footer"><span>{{ $isArabic ? 'تفاصيل المرحلة' : 'EXPLORE STAGE' }}</span><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></span>
+                        <span class="afaq-services__card-footer"><span>{{ __('afaq.explore_stage') }}</span><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></span>
                     </a>
                 </article>
             @endforeach
             </div>
         </div>
-        <div class="afaq-services__controls" aria-label="{{ $isArabic ? 'التنقل بين مراحل العمل' : 'Navigate work stages' }}">
+        <div class="afaq-services__controls" aria-label="{{ __('afaq.navigate_stages') }}">
             <span class="afaq-services__counter" aria-hidden="true"><span class="afaq-services__current">01</span><span class="afaq-services__counter-divider">/</span>{{ str_pad(count($services), 2, '0', STR_PAD_LEFT) }}</span>
             <div class="afaq-services__progress" aria-hidden="true"></div>
             <div class="afaq-services__navigation">
-                <button type="button" class="afaq-services__prev" aria-label="{{ $isArabic ? 'المرحلة السابقة' : 'Previous stage' }}"><i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></button>
-                <button type="button" class="afaq-services__next" aria-label="{{ $isArabic ? 'المرحلة التالية' : 'Next stage' }}"><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
+                <button type="button" class="afaq-services__prev" aria-label="{{ __('afaq.previous_stage') }}"><i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></button>
+                <button type="button" class="afaq-services__next" aria-label="{{ __('afaq.next_stage') }}"><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
             </div>
         </div>
         @if($TopicBlock->more_btn_status && $sectionUrl !== '')

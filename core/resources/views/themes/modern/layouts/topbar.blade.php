@@ -12,7 +12,7 @@
      class="afaq-topbar d-flex align-items-center {{ (Helper::GeneralSiteSettings("style_header"))?"fixed-top":"" }} {{ (Helper::GeneralSiteSettings("style_bg_type"))?"topbar-no-bg":"header-bg" }}">
     <div class="container d-flex justify-content-between">
         <div class="contact-info d-flex align-items-center">
-            <span class="afaq-topbar-statement">{{ @Helper::currentLanguage()->code === 'ar' ? 'طاقة بإتقان هندسي' : 'ENERGY. ENGINEERED.' }}</span>
+            <span class="afaq-topbar-statement">{{ __('afaq.brand_line') }}</span>
             @if($afaqHeaderPhone !== '')
                 <span
                     class="{{ (Helper::GeneralWebmasterSettings("header_search_status") && Helper::GeneralSiteSettings("style_change"))?"d-none d-lg-block":"" }}">
