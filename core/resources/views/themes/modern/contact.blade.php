@@ -29,6 +29,7 @@
         }
 
         $custom_css_code = $Topic->css_code;
+
         $custom_js_code = $Topic->js_code;
         $custom_body_code = $Topic->body_code;
         ?>
