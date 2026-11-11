@@ -57,7 +57,7 @@
         if (@$page_type == "tag" && trim(@$TagDescription)) {
             $Category_description = @$TagDescription;
         }
-        $afaqModule = in_array((string) (@$WebmasterSection->seo_url_slug_en ?? ''), ['services', 'afaq-components', 'afaq-systems', 'afaq-sectors'], true)
+        $afaqModule = in_array((int) (@$WebmasterSection->id ?? ''), [15, 16, 17, 18], true)
             ? str_replace('afaq-', '', $WebmasterSection->seo_url_slug_en) : null;
         ?>
         @if($afaqModule && empty($search_word) && empty($DBTag))
