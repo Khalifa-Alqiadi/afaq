@@ -18,20 +18,15 @@
         $title = $topic->{'title_'.$language} ?: $topic->{'title_'.$fallbackLanguage};
         $details = $topic->{'details_'.$language} ?: $topic->{'details_'.$fallbackLanguage};
         $description = \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/u', ' ', strip_tags((string) $details))), 140);
-        $isProjectImage = static fn ($file) => $file && !in_array(strtolower(basename((string) $file)), ['default.png', 'noimg.png', 'nav-bg.png', 'nofile.png'], true);
-        $photos = $topic->photos->pluck('file')->filter($isProjectImage)->values();
-        if ($photos->isEmpty() && $isProjectImage($topic->photo_file)) $photos = collect([$topic->photo_file]);
-        if ($photos->isEmpty()) $photos = collect([null]);
-        foreach ($photos as $file) {
-            $hasImage = $file && $disk->exists('topics/'.$file);
-            $items[] = [
-                'title' => $title,
-                'description' => $description,
-                'image' => $hasImage ? route('fileView', ['path' => 'topics/'.$file]) : null,
-                'link' => Helper::topicURL($topic->id, '', $topic),
-            ];
-            if (count($items) >= $limit) break 2;
-        }
+        $file = $topic->photo_file;
+        $hasImage = $file && !in_array(strtolower(basename((string) $file)), ['default.png', 'noimg.png', 'nav-bg.png', 'nofile.png'], true) && $disk->exists('topics/'.$file);
+        $items[] = [
+            'title' => $title,
+            'description' => $description,
+            'image' => $hasImage ? route('fileView', ['path' => 'topics/'.$file]) : null,
+            'link' => Helper::topicURL($topic->id, '', $topic),
+        ];
+        if (count($items) >= $limit) break;
     }
 @endphp
 
@@ -72,8 +67,8 @@
         </div>
         <div class="afaq-gallery__toolbar">
             <div class="afaq-gallery__navigation">
-                <button type="button" class="afaq-gallery__prev" aria-label="{{ __('afaq.previous_project') }}"><i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></button>
-                <button type="button" class="afaq-gallery__next" aria-label="{{ __('afaq.next_project') }}"><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
+                <button type="button" class="afaq-gallery__prev" aria-label="{{ __('afaq.previous_project') }}"><i class="fa-solid {{ $isArabic ? 'fa-arrow-right-long' : 'fa-arrow-left-long' }}" aria-hidden="true"></i></button>
+                <button type="button" class="afaq-gallery__next" aria-label="{{ __('afaq.next_project') }}"><i class="fa-solid {{ $isArabic ? 'fa-arrow-left-long' : 'fa-arrow-right-long' }}" aria-hidden="true"></i></button>
             </div>
             <div class="afaq-gallery__progress" aria-hidden="true"></div>
             <span class="afaq-gallery__counter" aria-hidden="true"><strong class="afaq-gallery__current">01</strong><span>/</span>{{ str_pad(count($items), 2, '0', STR_PAD_LEFT) }}</span>
