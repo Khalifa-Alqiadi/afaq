@@ -62,6 +62,7 @@
         @if($afaqModule && empty($search_word) && empty($DBTag))
             @include(theme_view('topic.afaq-index'))
         @else
+        <div class="afaq-default-topics{{ @count($Categories) > 0 ? ' afaq-default-topics--sidebar' : '' }}">
         @if($category_image !="")
             @include(theme_view("topic.cover"))
         @endif
@@ -79,8 +80,8 @@
             }
         @endphp
         @include(theme_view('layouts.breadcrumbs'))
-        @if($Category_description)<div class="container category-details">{!! nl2br($Category_description) !!}</div>@endif
-        <section id="content">
+        @if($Category_description)<div class="container"><div class="category-details afaq-default-topics__description">{!! nl2br($Category_description) !!}</div></div>@endif
+        <section id="content" class="afaq-default-topics__content">
             <div class="container">
                 <div class="row">
                     @if(@count($Categories)>0)
@@ -89,11 +90,15 @@
                     <div
                         class="col-lg-{{(@count($Categories)>0)? "9":"12"}} col-md-{{(@count($Categories)>0)? "7":"12"}} col-sm-12 col-xs-12">
                         @if($Topics->total() == 0)
-                            <div class="p-5 card text-center no-data">
-                                <i class="fa fa-desktop fa-5x opacity-50"></i>
-                                <h5 class="mt-3 text-muted">{{ __('frontend.noData') }}</h5>
+                            <div class="afaq-default-topics__empty" role="status">
+                                <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
+                                <p>{{ __('frontend.noData') }}</p>
                             </div>
                         @else
+                            <div class="afaq-default-topics__heading">
+                                <div><span class="afaq-default-topics__eyebrow">AFAQ / {{ __('afaq.collection') }}</span><h2>{{ __('afaq.browse_collection') }}</h2></div>
+                                <span class="afaq-default-topics__count">{{ str_pad($Topics->total(), 2, '0', STR_PAD_LEFT) }} <small>{{ __('afaq.items') }}</small></span>
+                            </div>
                             <div class="row modern-topics-grid">
                                 @if($Topics->total() > 0)
 
@@ -191,6 +196,7 @@
                 </div>
             </div>
         </section>
+        </div>
         @endif
     </div>
     @include(theme_view('layouts.popup'),['Popup'=>@$Popup])

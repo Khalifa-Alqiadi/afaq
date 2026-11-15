@@ -217,8 +217,7 @@
                                     @endif
                                 </div>
                                 <br>
-                            @elseif(count($Topic->photos) > 0)
-                                {{-- photo slider --}}
+                            {{-- @elseif(count($Topic->photos) > 0)
                                 <div>
                                     @if ($WebmasterSection->title_status)
                                         <div class="post-heading">
@@ -293,7 +292,7 @@
                                             @endforeach
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             @else
                                 {{-- one photo --}}
                                 <div class="post-image">
@@ -388,6 +387,43 @@
                                 <span>{{ __('backend.visits') }}: {{ number_format($Topic->visits) }}</span>
                                 <a
                                     href="{{ route('topicsEdit', ['webmasterId' => $Topic->webmaster_id, 'id' => $Topic->id]) }}">{{ __('backend.edit') }}</a>
+                            </div>
+                        @endif
+                        @if(count($Topic->photos) > 0)
+                            <div id="gallery" class="gallery line-frame mb-3 post-gallery">
+                                <div class="row g-0 m-0">
+                                    <?php
+                                    $cols_lg = 3;
+                                    $cols_md = 4;
+                                    if ($Categories->count() > 1) {
+                                        $cols_lg = 4;
+                                        $cols_md = 6;
+                                    }
+                                    if ($Topic->photos->count() == 3) {
+                                        $cols_lg = 4;
+                                        $cols_md = 4;
+                                    }
+                                    if ($Topic->photos->count() == 2) {
+                                        $cols_lg = 6;
+                                        $cols_md = 6;
+                                    }
+                                    ?>
+                                    @foreach ($Topic->photos as $photo)
+                                        <div
+                                            class="col-lg-{{ $cols_lg }} col-md-{{ $cols_md }} col-sm-6">
+                                            <div class="gallery-item">
+                                                <a href="{{ route('fileView', ['path' => 'topics/' . $photo->file]) }}"
+                                                    class="galelry-lightbox" title="{{ $photo->title }}">
+                                                    <img src="{{ route('fileView', ['path' => 'topics/' . $photo->file]) }}"
+                                                        loading="lazy" alt="{{ $photo->title }}" class="img-fluid">
+                                                </a>
+                                                @if ((int) @$WebmasterSection->id === 3 && trim((string) $photo->title) !== '')
+                                                    <p class="modern-news-photo-caption">{{ $photo->title }}</p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         @endif
 

@@ -318,7 +318,7 @@ $hero_shadow_color = Helper::colorHexToDarken($style_color2, 3.2);
     }
 
     .post-gallery {
-        background: {{ Helper::GeneralSiteSettings("style_color3") }}  !important;
+        background: transparent  !important;
     }
 
     .line-frame {
