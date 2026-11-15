@@ -16,7 +16,7 @@
                 return;
             }
 
-            if (slides.length < 2 || prefersReducedMotion) {
+            if (slides.length < 4 || prefersReducedMotion) {
                 slider.classList.add("is-static");
                 return;
             }

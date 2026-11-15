@@ -486,7 +486,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .fixed-top-margin {
-    margin-top: 120px
+    margin-top: 136px
 }
 
 @media (max-width: 992px) {
@@ -1390,6 +1390,30 @@ section {
 .partners .partners-marquee.is-static .swiper-wrapper {
     justify-content: center
 }
+
+.afaq-partners { position: relative; padding: clamp(70px, 7vw, 108px) 0 clamp(72px, 7vw, 105px); background-color: #f8faf6; }
+.afaq-partners::before { content: ""; position: absolute; top: 0; inset-inline-start: max(20px, calc((100% - 1320px) / 2)); width: 56px; height: 3px; background: var(--afaq-orange, #fe7d25); }
+.afaq-partners > .container:first-child { position: relative; }
+.afaq-partners .section-title { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); align-items: end; gap: 24px 70px; margin-bottom: clamp(31px, 4vw, 52px); padding: 0; text-align: start; }
+.afaq-partners .section-title h2 { margin: 0; color: #003b45; font-size: clamp(36px, 4.5vw, 64px); font-weight: 800; line-height: 1.2; letter-spacing: -.035em; }
+.afaq-partners .section-title p { max-width: 520px; margin: 0 0 5px; padding-inline-start: 20px; border-inline-start: 2px solid #c7fb5f; color: #59736d; font-size: clamp(15px, 1.12vw, 18px); line-height: 1.9; }
+.afaq-partners .partners-marquee-wrap { max-width: 1320px; margin: 0 auto; padding: 4px 20px 10px; overflow: hidden; }
+.afaq-partners .partners-marquee { padding: 5px 0 18px; overflow: visible; }
+.afaq-partners .partners-marquee .swiper-wrapper { align-items: stretch; }
+.afaq-partners .partners-marquee .swiper-slide { width: clamp(205px, 20vw, 282px); height: auto; }
+.afaq-partners .partners-marquee .thumbnail { position: relative; min-height: 142px; padding: 28px 26px; overflow: hidden; border: 1px solid #dce8df; border-radius: 4px; background: #fff; box-shadow: 0 7px 22px rgba(0,48,54,.035); transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease; }
+.afaq-partners .partners-marquee .thumbnail::after { content: ""; position: absolute; inset-inline-start: 0; bottom: 0; width: 0; height: 3px; background: #c7fb5f; transition: width .35s ease; }
+.afaq-partners .partners-marquee .thumbnail:hover { border-color: #aacbbb; box-shadow: 0 16px 32px rgba(0,48,54,.09); transform: translateY(-4px); }
+.afaq-partners .partners-marquee .thumbnail:hover::after { width: 100%; }
+.afaq-partners .partners-marquee .thumbnail a { width: 100%; min-height: 84px; }
+.afaq-partners .partners-marquee .thumbnail img { width: auto; max-width: 100%; height: auto; max-height: 84px; object-fit: contain; }
+.afaq-partners .partners-marquee.is-static .swiper-wrapper { flex-wrap: wrap; justify-content: center; gap: 18px; transform: none !important; }
+.afaq-partners .partners-marquee.is-static .swiper-slide { flex: 0 1 282px; width: min(282px, 100%); margin: 0 !important; }
+.afaq-partners .more-btn { margin-top: 29px; text-align: center; }
+.afaq-partners .more-btn .btn { padding: 13px 27px; border: 1px solid #003b45; border-radius: 3px; background: #003b45; color: #fff; font-weight: 750; transition: background .25s ease, color .25s ease; }
+.afaq-partners .more-btn .btn:hover { background: #c7fb5f; color: #003b45; }
+@media (max-width: 767px) { .afaq-partners .section-title { grid-template-columns: 1fr; gap: 16px; }.afaq-partners .section-title p { padding-inline-start: 16px; }.afaq-partners .partners-marquee-wrap { padding-inline: 16px; }.afaq-partners .partners-marquee .swiper-slide { width: 220px; }.afaq-partners .partners-marquee .thumbnail { min-height: 125px; padding: 22px; }.afaq-partners .partners-marquee .thumbnail img { max-height: 72px; } }
+@media (prefers-reduced-motion: reduce) { .afaq-partners .partners-marquee .thumbnail, .afaq-partners .partners-marquee .thumbnail::after { transition: none; transform: none; } }
 
 @media (max-width: 767px) {
     .partners .partners-marquee-wrap {
@@ -3564,8 +3588,8 @@ pre {
 }
 
 .topic-read-also-card__content strong {
-    color: var(--read-also-ink);
-    font-size: clamp(.98rem, 1.5vw, 1.12rem);
+    color: #000;
+    font-size: 17px;
     line-height: 1.55;
 }
 
@@ -4442,7 +4466,7 @@ pre {
     min-height: 92px;
     padding: 0 2px;
     color: var(--afaq-ink);
-    font-size: clamp(12px, .88vw, 15px);
+    font-size: 19px;
     font-weight: 650;
     white-space: nowrap;
 }

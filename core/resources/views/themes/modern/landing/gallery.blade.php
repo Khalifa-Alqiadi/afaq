@@ -44,22 +44,22 @@
             <div class="afaq-gallery__slider swiper" dir="{{ $isArabic ? 'rtl' : 'ltr' }}" aria-label="{{ __('afaq.project_gallery') }}">
                 <div class="swiper-wrapper">
                     @foreach($items as $item)
-                        <div class="swiper-slide afaq-gallery__slide">
-                            <a class="afaq-gallery__media {{ $item['image'] ? 'galelry-lightbox' : 'afaq-gallery__media--empty' }}" href="{{ $item['image'] ?: $item['link'] }}" @if($item['image']) data-gallery="afaq-gallery-{{ (int) $TopicBlock->id }}" @endif title="{{ $item['title'] }}" aria-label="{{ $item['image'] ? __('afaq.view_image', ['title' => $item['title']]) : $item['title'] }}">
+                        <a href="{{ $item['link'] }}" class="swiper-slide afaq-gallery__slide">
+                            <div class="afaq-gallery__media afaq-gallery__media--empty">
                                 @if($item['image'])
                                     <img src="{{ $item['image'] }}?w=1600&h=950&r=fit" alt="{{ $item['title'] }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}" width="1600" height="950">
                                 @else
                                     <span class="afaq-gallery__geometry" aria-hidden="true"><span></span><span></span><span></span></span>
                                 @endif
-                            </a>
+                            </div>
                             <div class="afaq-gallery__veil" aria-hidden="true"></div>
                             <div class="afaq-gallery__slide-top"><span>AFAQ <span class="afaq-gallery__slash">/</span> {{ __('afaq.selected_work') }}</span><span>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }} / {{ str_pad(count($items), 2, '0', STR_PAD_LEFT) }}</span></div>
                             <div class="afaq-gallery__slide-copy">
                                 <span class="afaq-gallery__slide-kicker">{{ __('afaq.project') }} {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                                 <h3>{{ $item['title'] }}</h3>
-                                <a class="afaq-gallery__project-link" href="{{ $item['link'] }}">{{ __('afaq.project_details') }} <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a>
+                                <span class="afaq-gallery__project-link">{{ __('afaq.project_details') }} <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></span>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>

@@ -25,7 +25,7 @@ if (@$TopicBlockContents->module_id) {
 ?>
 
 @if(count($BlockTopics) >0)
-    <section id="landing-block-{{ @$TopicBlock->id }}" class="partners landing-block {{ @$TopicBlock->css_classes  }}" style="{{ $block_style }}">
+    <section id="landing-block-{{ @$TopicBlock->id }}" class="partners afaq-partners landing-block {{ @$TopicBlock->css_classes  }}" style="{{ $block_style }}">
         <div class="container">
             @if(@$TopicBlock->title_status || @$TopicBlock->desc_status)
                 <div class="section-title">
@@ -69,16 +69,16 @@ if (@$TopicBlockContents->module_id) {
                                 @if($URL !="")
                                     <a href="{{ $URL }}" target="_blank" rel="noopener">
                                         <img
-                                            src="{{ route("fileView",["path" =>'topics/'.$HomePartner->photo_file ]) }}?w=200&h=200"
+                                            src="{{ route("fileView",["path" =>'topics/'.$HomePartner->photo_file ]) }}"
                                             data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title="{{ $title }}" width="100%" height="100%" loading="lazy"
+                                            data-bs-placement="bottom" title="{{ $title }}" loading="lazy"
                                             alt="{{ Helper::topicPhotoAlt($HomePartner) }}">
                                     </a>
                                 @else
                                     <img
-                                        src="{{ route("fileView",["path" =>'topics/'.$HomePartner->photo_file ]) }}?w=200&h=200"
+                                        src="{{ route("fileView",["path" =>'topics/'.$HomePartner->photo_file ]) }}"
                                         data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" title="{{ $title }}" width="100%" height="100%" loading="lazy"
+                                        data-bs-placement="bottom" title="{{ $title }}" loading="lazy"
                                         alt="{{ Helper::topicPhotoAlt($HomePartner) }}">
                                 @endif
                             </div>
