@@ -95,10 +95,10 @@
                                 <p>{{ __('frontend.noData') }}</p>
                             </div>
                         @else
-                            <div class="afaq-default-topics__heading">
+                            {{-- <div class="afaq-default-topics__heading">
                                 <div><span class="afaq-default-topics__eyebrow">AFAQ / {{ __('afaq.collection') }}</span><h2>{{ __('afaq.browse_collection') }}</h2></div>
                                 <span class="afaq-default-topics__count">{{ str_pad($Topics->total(), 2, '0', STR_PAD_LEFT) }} <small>{{ __('afaq.items') }}</small></span>
-                            </div>
+                            </div> --}}
                             <div class="row modern-topics-grid">
                                 @if($Topics->total() > 0)
 
