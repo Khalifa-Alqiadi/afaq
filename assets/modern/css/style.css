@@ -5041,7 +5041,7 @@ pre {
 #footer.afaq-footer a.modern-footer-contact-value:hover { color: var(--footer-accent); }
 
 #footer.afaq-footer .footer-bottom { position: relative; background: var(--footer-deep); border: 0; }
-#footer.afaq-footer .afaq-footer-bottom-inner { display: flex; align-items: center; justify-content: space-between; gap: 12px 28px; }
+#footer.afaq-footer .afaq-footer-bottom-inner { display: flex; align-items: center; justify-content: center; gap: 12px 28px; }
 #footer.afaq-footer .copyright { color: #cad9d9; font-size: .83rem; }
 #footer.afaq-footer .credits,
 #footer.afaq-footer .credits a { padding: 0; color: #8eabb2 !important; font-size: .78rem; }

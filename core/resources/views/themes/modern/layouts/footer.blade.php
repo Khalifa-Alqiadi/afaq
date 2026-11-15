@@ -115,9 +115,6 @@ $contact_email = Helper::GeneralSiteSettings("contact_t6");
                     &copy; <?php echo date("Y") ?> {{ __('frontend.AllRightsReserved') }}
                     . {{Helper::GeneralSiteSettings($site_title_var)}}
                 </div>
-                <div class="credits">
-                    {{ __('frontend.poweredByName') }} <a href="https://yemenhosting.com">{{__('frontend.yemenHosting')}}</a>
-                </div>
             </div>
         </div>
     </div>
