@@ -1391,7 +1391,7 @@ section {
     justify-content: center
 }
 
-.afaq-partners { position: relative; padding: clamp(70px, 7vw, 108px) 0 clamp(72px, 7vw, 105px); background-color: #f8faf6; }
+.afaq-partners { position: relative; padding: clamp(70px, 7vw, 108px) 0 clamp(72px, 7vw, 105px); background-color: transparent; }
 .afaq-partners::before { content: ""; position: absolute; top: 0; inset-inline-start: max(20px, calc((100% - 1320px) / 2)); width: 56px; height: 3px; background: var(--afaq-orange, #fe7d25); }
 .afaq-partners > .container:first-child { position: relative; }
 .afaq-partners .section-title { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); align-items: end; gap: 24px 70px; margin-bottom: clamp(31px, 4vw, 52px); padding: 0; text-align: start; }
