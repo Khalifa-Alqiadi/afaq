@@ -81,9 +81,9 @@
         @if($afaqModule)
             @include(theme_view('topic.afaq-detail'))
         @else
-        @if ($category_image != '')
-            @include(theme_view('topic.cover'))
-        @endif
+        {{-- @if ($category_image != '') --}}
+            {{-- @include(theme_view('topic.cover'))
+        @endif --}}
         @php
             $breadcrumbItems = [];
             if ($webmaster_section_title !== '' && (int) @$WebmasterSection->id !== 1) $breadcrumbItems[] = ['label' => $webmaster_section_title, 'url' => Helper::sectionURL($WebmasterSection->id)];
@@ -410,7 +410,7 @@
                                     ?>
                                     @foreach ($Topic->photos as $photo)
                                         <div
-                                            class="col-lg-{{ $cols_lg }} col-md-{{ $cols_md }} col-sm-6">
+                                            class="col-lg-{{ $cols_lg }} col-md-{{ $cols_md }} col-sm-6 col-6">
                                             <div class="gallery-item">
                                                 <a href="{{ route('fileView', ['path' => 'topics/' . $photo->file]) }}"
                                                     class="galelry-lightbox" title="{{ $photo->title }}">

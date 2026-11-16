@@ -38,7 +38,7 @@ $contact_email = Helper::GeneralSiteSettings("contact_t6");
                             ?>
                         @if(count($MenuLinks) <= $max_menu_cols)
                             @foreach($MenuLinks as $MenuLink)
-                                <div class="col-lg-2 col-md-6 footer-links">
+                                <div class="col-lg-2 col-md-6 col-6 footer-links">
                                     <div class="footer-title"><h3>{{ @$MenuLink->title }}</h3></div>
                                     @if(@$MenuLink->sub)
                                         <ul>
