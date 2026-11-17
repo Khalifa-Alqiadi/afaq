@@ -1708,7 +1708,9 @@ article .photo-panel {
 
     .partners .partners-marquee .thumbnail img {
         max-width: none;
-        max-height: none
+        max-height: none;
+        width: 100%;
+        height: 100%;
     }
 }
 
