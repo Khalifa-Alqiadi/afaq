@@ -3517,10 +3517,6 @@ article .row {
         font-size: 15px
     }
 
-    .modern-footer-logo img {
-        max-width: 190px
-    }
-
 }
 
 .header-dropdown img {
@@ -7172,10 +7168,10 @@ pre {
     #footer.afaq-footer .modern-footer-description,
     #footer.afaq-footer .afaq-footer-cta,
     #footer.afaq-footer .social-links { grid-column: 1; grid-row: auto; }
-    #footer.afaq-footer .social-links { justify-content: flex-start; margin-top: 5px; }
+    #footer.afaq-footer .social-links { justify-content: center; margin-top: 5px; }
     #footer.afaq-footer .afaq-footer-nav .footer-links { grid-template-columns: 1fr; gap: 8px; }
     #footer.afaq-footer .afaq-footer-nav { gap: 24px; padding-top: 25px; }
-    #footer.afaq-footer .afaq-footer-nav .footer-links ul { justify-content: flex-start; }
+    #footer.afaq-footer .afaq-footer-nav .footer-links ul { justify-content: center; }
 }
 @media (max-width: 380px) {
     #footer.afaq-footer .afaq-footer-nav { gap: 20px; }
