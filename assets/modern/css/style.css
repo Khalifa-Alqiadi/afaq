@@ -10801,8 +10801,9 @@ pre {
 }
 
 .afaq-detail__article .social-network.share a {
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 40px;
     height: 40px;
     border: 1px solid #bad2c6;
@@ -10812,6 +10813,12 @@ pre {
     font-size: 17px;
     text-decoration: none;
     transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    padding: 0;
+    line-height: 0;
+}
+
+.afaq-detail__article .social-network.share a i {
+    line-height: 0;
 }
 
 .afaq-detail__article .social-network.share a:hover {
