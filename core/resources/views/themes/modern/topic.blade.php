@@ -367,7 +367,7 @@
                                 @endif
                             </div>
 
-                            @if (@$Topic->attach_file != '')
+                            @if (@$Topic->attach_file != "")
                                 <?php
                                 $file_ext = strrchr($Topic->attach_file, '.');
                                 $file_ext = strtolower($file_ext);
