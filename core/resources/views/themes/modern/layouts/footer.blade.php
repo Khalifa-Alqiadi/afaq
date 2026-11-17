@@ -11,10 +11,10 @@ $contact_email = Helper::GeneralSiteSettings("contact_t6");
 ?>
 <footer id="footer" class="modern-footer afaq-footer">
     @if(Helper::GeneralSiteSettings("style_footer")==1)
-        <div class="footer-top pb-2">
+        <div class="footer-top afaq-footer-top">
             <div class="container">
-                <div class="row g-4 modern-footer-main pb-0">
-                    <div class="col-lg-4 col-md-12">
+                <div class="afaq-footer-main">
+                    <div class="afaq-footer-brand-column">
                         <div class="modern-footer-brand">
                             <a class="modern-footer-logo" href="{{ Helper::homeURL() }}">
                                 @if($footer_logo)
@@ -27,19 +27,24 @@ $contact_email = Helper::GeneralSiteSettings("contact_t6");
                             @if(Helper::GeneralSiteSettings($site_desc_var) !="")
                                 <p class="modern-footer-description">{{ Helper::GeneralSiteSettings($site_desc_var) }}</p>
                             @endif
+                            <a class="afaq-footer-cta" href="{{ url((Helper::currentLanguage()->code !== config('smartend.default_language') ? Helper::currentLanguage()->code.'/' : '').'afaq-contact') }}">
+                                <span>{{ __('afaq.project_cta') }}</span>
+                                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                            </a>
                             @include(theme_view("layouts.social"),["tt_position"=>"top"])
                         </div>
                     </div>
 
                     @if(Helper::GeneralWebmasterSettings("footer_menu_id") >0)
+                        <div class="afaq-footer-nav">
                             <?php
                             $MenuLinks = \App\Helpers\SiteMenu::List(Helper::GeneralWebmasterSettings("footer_menu_id"));
                             $max_menu_cols = Helper::GeneralSiteSettings("style_subscribe") ? 2 : 3;
                             ?>
                         @if(count($MenuLinks) <= $max_menu_cols)
                             @foreach($MenuLinks as $MenuLink)
-                                <div class="col-lg-2 col-md-6 col-6 footer-links">
-                                    <div class="footer-title"><h3>{{ @$MenuLink->title }}</h3></div>
+                                <div class="footer-links">
+                                    {{-- <div class="footer-title"><h3>{{ @$MenuLink->title }}</h3></div> --}}
                                     @if(@$MenuLink->sub)
                                         <ul>
                                             @foreach($MenuLink->sub as $SubLink)
@@ -55,8 +60,8 @@ $contact_email = Helper::GeneralSiteSettings("contact_t6");
                                 </div>
                             @endforeach
                         @else
-                            <div class="col-lg-2 col-md-6 footer-links">
-                                <div class="footer-title"><h3>{{ __('frontend.quickLinks') }}</h3></div>
+                            <div class="footer-links">
+                                {{-- <div class="footer-title"><h3>{{ __('frontend.quickLinks') }}</h3></div> --}}
                                 <ul>
                                     @foreach($MenuLinks as $MenuLink)
                                         <li><a class="nav-link" href="{{ @$MenuLink->url }}" target="{{ @$MenuLink->target }}">{!! (@$MenuLink->icon)?"<i class='".@$MenuLink->icon."'></i> ":"" !!} {{ @$MenuLink->title }}</a></li>
@@ -69,6 +74,7 @@ $contact_email = Helper::GeneralSiteSettings("contact_t6");
                                 </ul>
                             </div>
                         @endif
+                        </div>
                     @endif
                     {{-- @include(theme_view('layouts.subscribe')) --}}
                 </div>

@@ -44,7 +44,7 @@
 <link rel="stylesheet" href="{{ theme_asset('vendor/owl-carousel/assets/owl.carousel.min.css') }}?v={{ Helper::system_version() }}">
 <link rel="stylesheet" href="{{ theme_asset('vendor/owl-carousel/assets/owl.theme.default.min.css') }}?v={{ Helper::system_version() }}">
 
-<link href="{{ theme_asset('css/style.css') }}?v={{ Helper::system_version() }}-{{ filemtime(base_path('../assets/modern/css/style.css')) }}" rel="stylesheet"/>
+<link href="{{ theme_asset('css/style.css') }}?v=10" rel="stylesheet"/>
 <link href="{{ theme_asset('css/colors.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
 <link href="{{ theme_asset('css/motion.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
 <link href="{{ theme_asset('css/authors.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
