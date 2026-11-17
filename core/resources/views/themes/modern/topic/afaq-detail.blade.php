@@ -50,7 +50,7 @@
                 @include(theme_view('topic.fields'), ['cols' => 6, 'Fields' => @$WebmasterSection->customFields->where('in_page', true)->where('type', '!=', 9)])
                 <div class="afaq-detail__prose">@if(@$WebmasterSection->editor_status){!! str_replace('"#', '"'.Request::url().'#', $afaqBody) !!}@else{!! nl2br($afaqBody) !!}@endif</div>
                 @if($custom_body_code !== '')<div class="afaq-detail__prose">{!! Blade::render($custom_body_code) !!}</div>@endif
-                @if($attach_file !== '')<a class="afaq-detail__download" href="{{ route('fileView', ['path' => 'topics/'.$Topic->attach_file]) }}" target="_blank" rel="noopener"><i class="fa-solid fa-download" aria-hidden="true"></i>{{ __('frontend.downloadAttach') }}</a>@endif
+                @if(@$Topic->attach_file !== '')<a class="afaq-detail__download" href="{{ route('fileView', ['path' => 'topics/'.$Topic->attach_file]) }}" target="_blank" rel="noopener"><i class="fa-solid fa-download" aria-hidden="true"></i>{{ __('frontend.downloadAttach') }}</a>@endif
                 @if($Topic->photos->isNotEmpty())
                     <div class="afaq-detail__gallery">
                         @foreach($Topic->photos as $photo)
