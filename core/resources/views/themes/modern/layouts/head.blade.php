@@ -53,7 +53,7 @@
 <link href="{{ theme_asset('css/yemen-categories.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
 <link href="{{ theme_asset('css/yemen-video-gallery.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
 <link href="{{ theme_asset('css/yemen-podcast.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
-<link href="{{ theme_asset('css/yemen-detail-tuning.css') }}?v={{ Helper::system_version() }}" rel="stylesheet"/>
+<link href="{{ theme_asset('css/yemen-detail-tuning.css') }}?v=11" rel="stylesheet"/>
 
 
 @if( @Helper::currentLanguage()->direction=="rtl")
