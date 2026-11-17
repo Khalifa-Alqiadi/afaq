@@ -388,28 +388,6 @@
     transform: translateY(-2px)
 }
 
-/* The open-book identity mark used consistently with public headings. */
-.landing-page .section-title h2::before,
-.landing-page .yh-section-head h2::before,
-.landing-page .yh-news-ledger__head h2::before,
-.landing-page .yh-articles-columns__title h2::before,
-.landing-page .yh-scholar-atlas__head h2::before,
-.landing-page .yh-categories__head h2::before,
-.landing-page .yh-author-articles__heading h2::before,
-.topics-breadcrumbs h1::before,
-.topics-breadcrumbs h2::before {
-    content: '';
-    position: static;
-    display: inline-block;
-    width: 46px;
-    height: 20px;
-    margin-inline-end: 12px;
-    border: 0;
-    background: url('../images/4_1.png') center / contain no-repeat;
-    box-shadow: none;
-    transform: translateY(-2px);
-    vertical-align: middle;
-}
 
 .yh-video-section .yh-section-head h2::before{
     content: none !important;
@@ -590,15 +568,6 @@
     .yh-articles-columns__title h2::before,
     .yh-scholar-atlas__head h2::before,
     .yh-categories__head h2::before {
-        width: 38px;
-        height: 17px;
-        margin-inline-end: 9px
-    }
-
-    .landing-page .section-title h2::before,
-    .landing-page .yh-author-articles__heading h2::before,
-    .topics-breadcrumbs h1::before,
-    .topics-breadcrumbs h2::before {
         width: 38px;
         height: 17px;
         margin-inline-end: 9px
