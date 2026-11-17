@@ -27,7 +27,7 @@ $contact_email = Helper::GeneralSiteSettings("contact_t6");
                             @if(Helper::GeneralSiteSettings($site_desc_var) !="")
                                 <p class="modern-footer-description">{{ Helper::GeneralSiteSettings($site_desc_var) }}</p>
                             @endif
-                            <a class="afaq-footer-cta" href="{{ url((Helper::currentLanguage()->code !== config('smartend.default_language') ? Helper::currentLanguage()->code.'/' : '').'afaq-contact') }}">
+                            <a class="afaq-footer-cta" href="{{ url((Helper::currentLanguage()->code !== config('smartend.default_language') ? Helper::currentLanguage()->code.'/' : '').'contact') }}">
                                 <span>{{ __('afaq.project_cta') }}</span>
                                 <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
                             </a>
