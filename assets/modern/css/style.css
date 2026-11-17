@@ -1703,7 +1703,7 @@ article .photo-panel {
 
     .partners .partners-marquee .thumbnail {
         min-height: 0;
-        padding: 0
+        padding: 10px;
     }
 
     .partners .partners-marquee .thumbnail img {
